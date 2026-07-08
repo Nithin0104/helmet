@@ -1,0 +1,39 @@
+:root {
+  /* surfaces */
+  --bg: #08080a;
+  --bg-alt: #0b0b0d;
+  --surface: #101012;
+  --surface-alt: #0e0e10;
+  --surface-raised: #141417;
+  --border: rgba(255, 255, 255, 0.09);
+
+  /* text */
+  --text: #f4f3f1;
+  --text-muted: #9a9aa0;
+  --text-muted-2: #8a8a8f;
+  --text-dim: #6a6a70;
+  --text-dim-2: #4d4d54;
+
+  /* semantic */
+  --gold: #c9a227;
+  --success: #1f9d55;
+  --danger: #c0392b;
+
+  /* accent trio (default red — overridden per [data-accent] in accents.css) */
+  --accent: #ff3b24;
+  --accent-hover: #ff5a44;
+  --accent-shadow: rgba(255, 59, 36, 0.45);
+
+  /* type */
+  --font-sans: 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Space Mono', 'SFMono-Regular', monospace;
+
+  /* radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* layout */
+  --max-w: 1280px;
+}

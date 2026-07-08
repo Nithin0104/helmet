@@ -1,0 +1,23 @@
+[data-accent='red'] {
+  --accent: #ff3b24;
+  --accent-hover: #ff5a44;
+  --accent-shadow: rgba(255, 59, 36, 0.45);
+}
+
+[data-accent='blue'] {
+  --accent: #2e6bff;
+  --accent-hover: #5a8bff;
+  --accent-shadow: rgba(46, 107, 255, 0.45);
+}
+
+[data-accent='orange'] {
+  --accent: #ff9b24;
+  --accent-hover: #ffb454;
+  --accent-shadow: rgba(255, 155, 36, 0.45);
+}
+
+[data-accent='purple'] {
+  --accent: #8b5cf6;
+  --accent-hover: #a684fa;
+  --accent-shadow: rgba(139, 92, 246, 0.45);
+}
