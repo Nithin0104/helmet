@@ -42,6 +42,7 @@ export function BottomSheet({
         className={cx(styles.sheet, className)}
         role="dialog"
         aria-modal="true"
+        aria-label={typeof title === 'string' ? title : undefined}
         style={{ maxHeight }}
         onClick={(e) => e.stopPropagation()}
       >

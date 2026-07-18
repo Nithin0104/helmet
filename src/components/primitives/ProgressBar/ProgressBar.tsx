@@ -11,6 +11,8 @@ export interface ProgressBarProps {
   tone?: ProgressTone;
   showLabel?: boolean;
   speed?: number;
+  /** Accessible name for the progressbar role. Default: 'Progress'. */
+  label?: string;
   className?: string;
 }
 
@@ -21,6 +23,7 @@ export function ProgressBar({
   tone = 'accent',
   showLabel = false,
   speed = 1.4,
+  label = 'Progress',
   className,
 }: ProgressBarProps) {
   const pct = Math.min(100, Math.max(0, value));
@@ -31,6 +34,7 @@ export function ProgressBar({
         className={cx(styles.track, styles[tone])}
         style={{ height, '--speed': `${speed}s` } as CSSProperties}
         role="progressbar"
+        aria-label={label}
         aria-valuenow={indeterminate ? undefined : Math.round(pct)}
         aria-valuemin={0}
         aria-valuemax={100}
