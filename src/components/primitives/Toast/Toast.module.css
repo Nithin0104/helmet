@@ -1,0 +1,81 @@
+.toast {
+  --tone: var(--surface-raised);
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(90vw, 420px);
+  padding: 13px 16px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--tone);
+  border-radius: var(--radius-md);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  animation: toastIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bottom {
+  bottom: 24px;
+}
+.top {
+  top: 24px;
+}
+
+.default {
+  --tone: var(--accent);
+}
+.success {
+  --tone: var(--success);
+}
+.error {
+  --tone: var(--danger);
+}
+.info {
+  --tone: #2e6bff;
+}
+
+.icon {
+  display: inline-flex;
+  color: var(--tone);
+  font-size: 18px;
+  flex: none;
+}
+
+.message {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.action {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--tone);
+  flex: none;
+}
+.action:hover {
+  text-decoration: underline;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--text-dim);
+  flex: none;
+}
+.close:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+}

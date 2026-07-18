@@ -1,0 +1,31 @@
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.interactive .iconWrap {
+  cursor: pointer;
+}
+
+.iconWrap {
+  display: inline-flex;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+}
+
+.small .icon {
+  width: 14px;
+  height: 14px;
+}
+.medium .icon {
+  width: 18px;
+  height: 18px;
+}
+.large .icon {
+  width: 24px;
+  height: 24px;
+}

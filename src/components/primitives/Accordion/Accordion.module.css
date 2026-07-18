@@ -1,0 +1,57 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  border-bottom: 1px solid var(--border);
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 4px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.q {
+  flex: 1;
+}
+
+.chevron {
+  flex: none;
+  color: var(--text-dim);
+  font-size: 18px;
+  transition: transform var(--speed) ease;
+}
+.open .chevron {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+/* grid-rows 0fr→1fr trick: animates height without measuring the DOM */
+.panelWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--speed) ease;
+}
+.open .panelWrap {
+  grid-template-rows: 1fr;
+}
+
+.panel {
+  overflow: hidden;
+  min-height: 0;
+}
+.panelInner {
+  padding: 0 4px 18px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}

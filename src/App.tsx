@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useTheme } from './theme/ThemeContext';
 import { useCart } from './cart/CartContext';
 import { ACCENTS, ACCENT_KEYS } from './theme/accents';
+import ShowcasePage from './pages/ShowcasePage';
 
 function FoundationsPlaceholder() {
   const { accentKey, setAccent } = useTheme();
@@ -68,6 +69,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<FoundationsPlaceholder />} />
+      <Route path="/showcase" element={<ShowcasePage />} />
     </Routes>
   );
 }

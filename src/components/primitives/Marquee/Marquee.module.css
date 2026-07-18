@@ -1,0 +1,50 @@
+.marquee {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  padding-right: var(--gap);
+  flex: none;
+  min-width: 100%;
+  animation: marquee var(--speed) linear infinite;
+  animation-direction: var(--dir);
+}
+
+.pauseHover:hover .track {
+  animation-play-state: paused;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* dark — subtle band on the base surface */
+.dark {
+  background: var(--surface-alt);
+  border-block: 1px solid var(--border);
+  padding-block: 12px;
+}
+
+/* solid — accent band, high contrast (the DC announce bar) */
+.solid {
+  background: var(--accent);
+  padding-block: 12px;
+}
+.solid .item {
+  color: #fff;
+  font-weight: 700;
+}

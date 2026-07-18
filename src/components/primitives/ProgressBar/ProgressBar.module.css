@@ -1,0 +1,58 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.track {
+  --tone: var(--accent);
+  position: relative;
+  flex: 1;
+  background: var(--surface-raised);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.accent {
+  --tone: var(--accent);
+}
+.success {
+  --tone: var(--success);
+}
+.danger {
+  --tone: var(--danger);
+}
+.gold {
+  --tone: var(--gold);
+}
+
+.fill {
+  height: 100%;
+  background: var(--tone);
+  border-radius: var(--radius-pill);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.indeterminate {
+  position: absolute;
+  width: 40%;
+  animation: progressSlide var(--speed) ease-in-out infinite;
+}
+
+@keyframes progressSlide {
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  min-width: 34px;
+  text-align: right;
+}

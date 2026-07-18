@@ -1,0 +1,76 @@
+.carousel {
+  position: relative;
+  width: 100%;
+}
+
+.viewport {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.track {
+  display: flex;
+  transition: transform var(--speed) cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(8, 8, 10, 0.7);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 20px;
+  backdrop-filter: blur(4px);
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.arrow:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.arrow:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.prev {
+  left: 12px;
+}
+.next {
+  right: 12px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  transition: background 0.18s ease, width 0.18s ease;
+}
+.dot:hover {
+  background: var(--text-dim);
+}
+.dotActive {
+  width: 22px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  border-color: var(--accent);
+}

@@ -1,0 +1,78 @@
+.nav {
+  display: flex;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page,
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: background var(--speed) ease, color var(--speed) ease;
+}
+.page:hover,
+.arrow:hover:not(:disabled) {
+  background: var(--surface-raised);
+  color: var(--text);
+}
+.arrow:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.pageActive {
+  background: var(--accent);
+  color: #fff;
+}
+.pageActive:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+/* dots variant — for gallery/carousel-style pagers */
+.dotRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  transition: background var(--speed) ease, transform var(--speed) ease, width var(--speed) ease;
+}
+.dot:hover {
+  background: var(--text-dim);
+}
+
+.dotActive {
+  width: 22px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  border-color: var(--accent);
+}
