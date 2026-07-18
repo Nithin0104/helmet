@@ -42,6 +42,23 @@ cards, search, and navigation — but the page bodies are still stubs.
 - Pull each DC source (`SiteHeader`, `SiteFooter`, `SlideNav`, `SearchPanel`, `ProductCard`,
   `CartToast`, `BrandStrip`, `ReviewCard`) as it's ported.
 
+## Porting decisions (as-built)
+Where the DC source is a prototype hack or conflicts with real-storefront behavior, we upgrade
+and note it here (DC visuals are still reproduced faithfully):
+- **Accent** is read from CSS vars (`var(--accent…)`), not threaded as an `accent` hex prop like DC.
+- **Cart icon** navigates to `/cart` (a `<Link>`), instead of DC's demo `window.ApexCart.add(1)`.
+  The live badge still reflects `useCart().count` with the `cartPop` animation.
+- **Currency** is `₹` (INR) via `lib/format.ts#formatPrice`, matching `data/products.ts` (localized
+  to India) rather than DC's hardcoded `£` — prices are data, not styling.
+- **Nav / footer / trending / brands / announcements** are content → `src/data/navigation.ts`.
+- **Reused primitives:** `AnnounceBanner` and `BrandStrip` wrap the Phase 1 `Marquee` (its `solid`
+  variant is literally the DC announce bar). `CartToast` is standalone to match the DC's centered
+  accent-bordered toast exactly.
+- **Focus trapping** for SlideNav/SearchPanel lives in a new reusable `hooks/useFocusTrap.ts`
+  (Tab-cycle + Escape + restore focus to trigger + body scroll lock), not copied per overlay.
+- **App shell:** `App.tsx` wraps routes in `SiteLayout` (normal) / minimal `SiteLayout` (`/checkout`)
+  with Phase 3 stub page bodies, so the header/footer/layout can be driven in the browser now.
+
 ## Verify
 - Header badge updates live when any add-to-cart fires anywhere; badge count persists on reload.
 - Desktop ⇄ mobile header swaps exactly at 800px; SlideNav + SearchPanel open/close and trap focus.

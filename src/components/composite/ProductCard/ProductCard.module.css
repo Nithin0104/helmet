@@ -1,0 +1,256 @@
+@keyframes cardShim {
+  0% {
+    background-position: -120% 0;
+  }
+  100% {
+    background-position: 220% 0;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-shadow);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
+}
+
+.fixed {
+  min-width: 168px;
+  max-width: 168px;
+}
+
+.grow {
+  flex: 1 1 200px;
+  max-width: 280px;
+}
+
+/* ---- media / placeholder image ---- */
+.media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: repeating-linear-gradient(135deg, #16161a 0 12px, #111114 12px 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 60%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: cardShim 3.4s linear infinite;
+  pointer-events: none;
+}
+
+.typeTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim-2);
+  letter-spacing: 1px;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 3px 6px;
+  letter-spacing: 0.5px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.badgeLight {
+  background: #fff;
+  color: var(--bg);
+}
+
+.heart {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 8, 10, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text);
+  font-size: 13px;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card:hover .heart {
+  opacity: 1;
+}
+
+.heart:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.soldOut {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 10, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.soldOutTag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 6px 12px;
+}
+
+.quickAdd {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  padding: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transform: translateY(101%);
+  transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.card:hover .quickAdd {
+  transform: translateY(0);
+}
+
+/* ---- body ---- */
+.body {
+  padding: 12px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.brand {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted-2);
+  letter-spacing: 1px;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.15;
+  font-family: var(--font-sans);
+  color: var(--text);
+  transition: color 0.15s ease;
+}
+
+.name:hover {
+  color: var(--accent);
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stars {
+  font-size: 11px;
+  color: var(--gold);
+}
+
+.ratingValue {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gold);
+}
+
+.reviewCount {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.price {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.add {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.add:hover:not(:disabled) {
+  transform: scale(1.15) rotate(90deg);
+  background: var(--accent-hover);
+}
+
+.add:active:not(:disabled) {
+  transform: scale(0.85);
+}
+
+.add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

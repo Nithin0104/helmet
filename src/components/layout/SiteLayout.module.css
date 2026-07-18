@@ -1,0 +1,32 @@
+.shell {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Ambient accent glow bleeding down from the top of the shell. */
+.glow {
+  position: fixed;
+  top: -30vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120vw;
+  height: 80vh;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--accent-shadow) 0%,
+    transparent 70%
+  );
+  opacity: 0.4;
+  animation: glow 9s ease-in-out infinite;
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}

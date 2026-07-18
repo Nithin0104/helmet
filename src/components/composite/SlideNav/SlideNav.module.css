@@ -1,0 +1,76 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(8, 8, 10, 0.97);
+  backdrop-filter: blur(8px);
+  padding: 22px 22px 40px;
+  display: flex;
+  flex-direction: column;
+  animation: fade 0.25s ease;
+  font-family: var(--font-sans);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-muted-2);
+}
+
+.close {
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--text);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.link:hover {
+  transform: translateX(10px);
+  color: var(--accent);
+}
+
+.active {
+  color: var(--accent);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.contact {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.8;
+  padding-top: 30px;
+}

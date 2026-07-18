@@ -1,0 +1,153 @@
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* ---- shared surface for desktop + mobile bars ---- */
+.deskHeader,
+.mobHeader {
+  background: rgba(11, 11, 13, 0.86);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-sans);
+}
+
+/* ---- desktop ---- */
+.deskInner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 28px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.navLink {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted-2);
+  transition: color 0.15s ease;
+  padding-bottom: 4px;
+}
+
+.navLink:hover {
+  color: var(--text);
+}
+
+.navActive {
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
+}
+
+/* ---- mobile ---- */
+.mobHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 18px;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+}
+
+.bar {
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  display: block;
+}
+
+.barAccent {
+  width: 14px;
+  background: var(--accent);
+}
+
+/* ---- icon actions ---- */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 18px;
+  color: var(--text);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  transition:
+    transform 0.16s ease,
+    color 0.16s ease;
+}
+
+.icon:hover {
+  transform: scale(1.15);
+  color: var(--accent);
+}
+
+.cartLink {
+  position: relative;
+}
+
+.cartDot {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  padding: 0 4px;
+  animation: cartPop 0.45s ease;
+}
+
+/* ---- minimal (checkout) ---- */
+.minimal {
+  position: relative;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 18px;
+  background: rgba(11, 11, 13, 0.86);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-sans);
+}
+
+.secure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text-muted-2);
+}
+
+.lock {
+  color: var(--accent);
+}
