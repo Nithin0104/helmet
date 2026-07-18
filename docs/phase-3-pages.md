@@ -8,6 +8,25 @@ router, and prove the end-to-end shopping flow. Pages should be thin — mostly 
 
 ---
 
+## Data prerequisites (do first)
+Phase 3 pages drive off `src/data/products.ts`, which today is uneven: only
+`velocity-rs-carbon` has the full detail set. Before building the pages, bring the mock
+catalog up to the shape the pages assume — this is the same "make `src/data/*` look like the
+future API contract" seam, not throwaway work.
+- **Enrich all 8 products** with the same optional fields the rich product already has:
+  `description`, `highlights`, `colors`, `sizes`, `views`, `specs`, `faqs`, `reviews`
+  (`reviewCount` should match the `reviews` length or stay a plausible superset). No PDP
+  section should be empty purely because the data was never filled in.
+- **Give products varied, real brands.** Today every product's `brand` is `"Apexline"`, so a
+  brand filter is a dead control. Spread them across the brand names already used for the home
+  marquee (`STRATA`, `NORDVIK`, `IONIQ`, `VANTA`, `RONIN`, plus `APEX`/Apexline) so the PLP
+  brand filter is meaningful. `brand` is already a field on `Product`; only the values change.
+- PDP/PLP/Cart should still **degrade gracefully** if a field is absent (hide the empty Reviews
+  tab, swatch row, etc.) — enriching the data doesn't remove the empty-state requirement, it
+  just means the happy path is demoable on every product, not only one.
+- **Images stay placeholders.** There are no real image assets; `views`/`colors` drive
+  *labelled placeholder tiles* (the same shimmer `ProductCard` uses), not photos.
+
 ## Routes (`App.tsx`)
 | Path | Page | Layout |
 | --- | --- | --- |
@@ -23,11 +42,13 @@ router, and prove the end-to-end shopping flow. Pages should be thin — mostly 
 
 - **HomePage** — hero (accent glow, headline, CTAs), BrandStrip, featured product rails
   (`ProductCard`), category cards, stats (`StatCard`/`CountUp`), marquee, scroll-reveal sections.
-- **ShopPage (PLP)** — filter sidebar/sheet (type, brand, price via `RangeSlider`, `Checkbox`,
-  `Chip`), sort control, responsive product grid, `Pagination`. Reads/derives from `data/products`;
+- **ShopPage (PLP)** — filter sidebar/sheet (type = `category`, brand, price via `RangeSlider`,
+  `Checkbox`, `Chip`), sort control, responsive product grid, `Pagination`. Reads/derives options
+  from `data/products` (distinct `category` and `brand` values, price min/max — don't hardcode);
   filters/sort in URL search params or local state. On mobile, filters open in a `BottomSheet`.
+  (Brand filter assumes the varied brands from **Data prerequisites**.)
 - **ProductPage (PDP)** — image gallery (hero + thumbnail strip driven by `product.views`/`colors`),
-  brand/name, `Rating`, price, ColourSwatch selector, size grid (stock/low/sold-out states),
+  brand/name, `Rating`, price, `ColorSwatch` selector, size grid (stock/low/sold-out states),
   `QtyStepper`, add-to-cart flow (loading→done→toast, `useCart().add`), `Tabs`
   (Description/Specs/Reviews), FAQ `Accordion`, review summary + `ReviewCard`s, related rail.
   Data via `getProduct(params.id)`; 404 → redirect. This is the richest page — port its DC source closely.

@@ -101,9 +101,37 @@ describe('PRODUCTS contract', () => {
     },
   );
 
-  it('has at least one sparse product to exercise empty-state UI', () => {
-    const sparse = PRODUCTS.filter((p) => !p.colors && !p.sizes && !p.reviews);
-    expect(sparse.length).toBeGreaterThan(0);
+  it('every product carries the full detail set (uniform catalog)', () => {
+    // Decision: enrich all products so any PDP is complete. Empty-state UI is
+    // exercised by component-level fixtures (sparse props), not by shipping a
+    // deliberately-bare catalog product.
+    for (const p of PRODUCTS) {
+      expect(p.description && p.description.length).toBeGreaterThan(0);
+      expect(p.highlights?.length ?? 0).toBeGreaterThan(0);
+      expect(p.colors?.length ?? 0).toBeGreaterThan(0);
+      expect(p.sizes?.length ?? 0).toBeGreaterThan(0);
+      expect(p.views?.length ?? 0).toBeGreaterThan(0);
+      expect(p.specs?.length ?? 0).toBeGreaterThan(0);
+      expect(p.faqs?.length ?? 0).toBeGreaterThan(0);
+      expect(p.reviews?.length ?? 0).toBeGreaterThan(0);
+    }
+  });
+
+  it('spans multiple brands and categories so PLP filters have real options', () => {
+    const brands = new Set(PRODUCTS.map((p) => p.brand));
+    const categories = new Set(PRODUCTS.map((p) => p.category));
+    expect(brands.size).toBeGreaterThan(1);
+    expect(categories.size).toBeGreaterThan(1);
+  });
+
+  it('every size ladder has at least one available and keeps some sold-out coverage', () => {
+    // Sold-out sizes drive the PDP disabled-state UI; keep at least one product
+    // with an unavailable size in the catalog.
+    for (const p of PRODUCTS.filter((x) => x.sizes)) {
+      expect(p.sizes!.some((s) => s.available)).toBe(true);
+    }
+    const withSoldOut = PRODUCTS.filter((p) => p.sizes?.some((s) => !s.available));
+    expect(withSoldOut.length).toBeGreaterThan(0);
   });
 });
 
