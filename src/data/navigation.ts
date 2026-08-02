@@ -9,15 +9,20 @@ export interface NavItem {
   href: string;
 }
 
-/** Desktop top-nav (DC: Helmets, Accessories, Brands, Showroom). */
+/**
+ * Desktop top-nav and mobile slide-nav. The DC source (`SiteHeader.dc.html`)
+ * gives these different defaults — desktop drops "Care" — but that leaves it
+ * reachable from the mobile menu with no desktop entry point, so both lists
+ * are kept in sync here instead.
+ */
 export const DESKTOP_NAV: NavItem[] = [
   { label: 'Helmets', href: '/shop' },
   { label: 'Accessories', href: '/shop' },
   { label: 'Brands', href: '/shop' },
+  { label: 'Care', href: '/shop' },
   { label: 'Showroom', href: '/showcase' },
 ];
 
-/** Mobile slide-nav has one extra entry (DC adds "Care"). */
 export const MOBILE_NAV: NavItem[] = [
   { label: 'Helmets', href: '/shop' },
   { label: 'Accessories', href: '/shop' },
