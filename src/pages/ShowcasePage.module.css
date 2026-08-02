@@ -20,7 +20,7 @@
   display: block;
   margin-bottom: 28px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--text);
@@ -28,7 +28,7 @@
 .railBrand span {
   display: block;
   margin-top: 2px;
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 400;
   color: var(--text-dim);
   letter-spacing: 0.06em;
@@ -42,7 +42,7 @@
 .railHeading {
   margin-bottom: 8px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -59,7 +59,7 @@
   display: block;
   padding: 6px 8px;
   border-radius: var(--radius-sm);
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   transition: background 0.16s ease, color 0.16s ease;
 }
@@ -87,14 +87,14 @@
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.1em;
   color: var(--accent);
   margin-bottom: 8px;
 }
 
 .title {
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: 800;
   color: var(--text);
   margin-bottom: 10px;
@@ -103,7 +103,7 @@
 .subtitle {
   max-width: 520px;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -132,7 +132,7 @@
 
 .sectionTitle {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -159,7 +159,7 @@
 }
 
 .bayTitle {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text);
 }
@@ -184,7 +184,7 @@
 
 .hint {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-dim);
 }
 
@@ -203,7 +203,7 @@
     ),
     radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-dim);

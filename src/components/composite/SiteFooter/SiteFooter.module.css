@@ -23,7 +23,7 @@
 
 .colHead {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   letter-spacing: 2px;
   color: var(--text-dim);
   margin-bottom: 10px;
@@ -31,7 +31,7 @@
 
 .link {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #b0b0b6;
   padding: 4px 0;
   transition:
@@ -46,7 +46,7 @@
 
 .legal {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   color: #55555c;
   line-height: 1.9;
   border-top: 1px solid rgba(255, 255, 255, 0.07);

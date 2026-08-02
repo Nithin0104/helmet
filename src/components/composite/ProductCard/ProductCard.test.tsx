@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { axe } from 'vitest-axe';
+import { useLocation } from 'react-router-dom';
 import { renderWithProviders, screen, userEvent } from '../../../../tests/utils';
 import { useCart } from '../../../cart/CartContext';
 import type { Product } from '../../../data/types';
@@ -16,9 +17,21 @@ const PRODUCT: Product = {
   badge: 'Bestseller',
 };
 
+/** A variant product (helmet) — carries colours/sizes, so add must go via the PDP. */
+const VARIANT_PRODUCT: Product = {
+  ...PRODUCT,
+  colors: [{ id: 'matte-black', name: 'Matte Black', hex: '#1a1a1c' }],
+  sizes: [{ id: 'm', label: 'M (57-58cm)', available: true }],
+};
+
 function CartCount() {
   const { count } = useCart();
   return <output data-testid="count">{count}</output>;
+}
+
+function LocationProbe() {
+  const { pathname } = useLocation();
+  return <output data-testid="path">{pathname}</output>;
 }
 
 describe('ProductCard', () => {
@@ -82,6 +95,72 @@ describe('ProductCard', () => {
     renderWithProviders(<ProductCard product={PRODUCT} heart quickAdd />, { route: '/' });
     expect(screen.getByRole('button', { name: 'Save Velocity RS Carbon' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '+ QUICK ADD' })).toBeInTheDocument();
+  });
+
+  it('toggles the wishlist saved state when the save button is clicked', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ProductCard product={PRODUCT} heart />, { route: '/' });
+
+    const save = screen.getByRole('button', { name: 'Save Velocity RS Carbon' });
+    expect(save).toHaveAttribute('aria-pressed', 'false');
+
+    await user.click(save);
+
+    expect(
+      screen.getByRole('button', { name: 'Remove Velocity RS Carbon from your wishlist' }),
+    ).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('reflects a pre-seeded wishlist as already saved', () => {
+    renderWithProviders(<ProductCard product={PRODUCT} heart />, {
+      route: '/',
+      initialWishlist: ['velocity-rs-carbon'],
+    });
+    expect(
+      screen.getByRole('button', { name: 'Remove Velocity RS Carbon from your wishlist' }),
+    ).toBeInTheDocument();
+  });
+
+  it('routes a variant product to its PDP instead of adding a bare cart line', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(
+      <>
+        <ProductCard product={VARIANT_PRODUCT} quickAdd />
+        <LocationProbe />
+        <CartCount />
+      </>,
+      { route: '/' },
+    );
+
+    // The quick-add bar reads "SELECT OPTIONS", and the footer button offers options.
+    expect(screen.getByRole('button', { name: 'SELECT OPTIONS' })).toBeInTheDocument();
+    await user.click(
+      screen.getByRole('button', { name: 'Choose options for Velocity RS Carbon' }),
+    );
+
+    expect(screen.getByTestId('path')).toHaveTextContent('/product/velocity-rs-carbon');
+    expect(screen.getByTestId('count')).toHaveTextContent('0');
+  });
+
+  it('adds a variant-less product straight to the cart from quick-add', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(
+      <>
+        <ProductCard product={PRODUCT} quickAdd />
+        <CartCount />
+      </>,
+      { route: '/' },
+    );
+
+    await user.click(screen.getByRole('button', { name: '+ QUICK ADD' }));
+    expect(screen.getByTestId('count')).toHaveTextContent('1');
+  });
+
+  it('renders a very long product name without breaking', () => {
+    const longName =
+      'Velocity RS Carbon Pro Max Ultra Track Race Limited Anniversary Edition Helmet';
+    renderWithProviders(<ProductCard product={{ ...PRODUCT, name: longName }} />, { route: '/' });
+    expect(screen.getByRole('link', { name: longName })).toBeInTheDocument();
   });
 
   it('has no detectable accessibility violations', async () => {

@@ -51,7 +51,7 @@
 
 .label {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-muted);
   min-width: 34px;
   text-align: right;

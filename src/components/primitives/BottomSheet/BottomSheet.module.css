@@ -51,7 +51,7 @@
 }
 
 .title {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 700;
   color: var(--text);
 }
@@ -63,7 +63,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1;
   color: var(--text-dim);
   flex: none;
@@ -77,6 +77,6 @@
   padding: 0 20px 24px;
   overflow-y: auto;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
 }

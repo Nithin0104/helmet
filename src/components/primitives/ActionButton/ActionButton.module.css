@@ -6,7 +6,7 @@
   padding: 13px 26px;
   border-radius: var(--radius-md);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
   color: #fff;
   background: var(--accent);

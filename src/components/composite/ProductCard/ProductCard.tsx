@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { cx } from '../../../lib/cx';
 import { formatPrice } from '../../../lib/format';
 import { useCart } from '../../../cart/CartContext';
+import { useWishlist } from '../../../wishlist/WishlistContext';
+import { SaveButton } from '../../primitives';
 import type { Product } from '../../../data/types';
 import styles from './ProductCard.module.css';
 
@@ -34,15 +36,30 @@ export function ProductCard({
   className,
 }: ProductCardProps) {
   const { add } = useCart();
+  const { has, toggle } = useWishlist();
+  const navigate = useNavigate();
   const { id, name, brand, category, price, rating, reviewCount, badge } = product;
 
   const typeLabel = (category || 'Helmet').toUpperCase();
   const lightBadge = badge === 'New';
+  /** Helmets carry colour/size variants; accessories don't. */
+  const hasVariants = Boolean(product.colors?.length || product.sizes?.length);
+  const addLabel = hasVariants ? `Choose options for ${name}` : `Add ${name} to cart`;
 
   const handleAdd = () => {
     if (soldOut) return;
-    if (onAdd) onAdd(product);
-    else add({ productId: id, name, brand, price });
+    // Escape hatch first, so callers can fully override the behaviour.
+    if (onAdd) {
+      onAdd(product);
+      return;
+    }
+    // Variant products can't be added blind — send the rider to the PDP to pick
+    // a colour/size rather than creating an under-specified cart line.
+    if (hasVariants) {
+      navigate(`/product/${id}`);
+      return;
+    }
+    add({ productId: id, name, brand, price });
   };
 
   return (
@@ -63,9 +80,12 @@ export function ProductCard({
         )}
 
         {heart && (
-          <button type="button" className={styles.heart} aria-label={`Save ${name}`}>
-            ♡
-          </button>
+          <SaveButton
+            className={styles.heart}
+            saved={has(id)}
+            onToggle={() => toggle(id)}
+            label={name}
+          />
         )}
 
         {soldOut && (
@@ -76,7 +96,7 @@ export function ProductCard({
 
         {quickAdd && !soldOut && (
           <button type="button" className={styles.quickAdd} onClick={handleAdd}>
-            + QUICK ADD
+            {hasVariants ? 'SELECT OPTIONS' : '+ QUICK ADD'}
           </button>
         )}
       </div>
@@ -100,11 +120,19 @@ export function ProductCard({
           <button
             type="button"
             className={styles.add}
-            aria-label={`Add ${name} to cart`}
+            aria-label={addLabel}
             onClick={handleAdd}
             disabled={soldOut}
           >
-            +
+            <svg className={styles.addIcon} viewBox="0 0 24 24" aria-hidden>
+              <path
+                d="M12 5v14M5 12h14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+              />
+            </svg>
           </button>
         </div>
       </div>

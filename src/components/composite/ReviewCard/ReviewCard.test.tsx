@@ -38,6 +38,16 @@ describe('ReviewCard', () => {
     expect(screen.queryByText(/Verified/)).not.toBeInTheDocument();
   });
 
+  it('renders a long quote in full (wraps rather than overflowing)', () => {
+    const longQuote =
+      'Absolutely brilliant helmet and the service was even better — the team spent ' +
+      'twenty minutes helping me find the right fit, talked me through the safety ' +
+      'ratings, and threw in a free anti-fog kit. I have already recommended them to ' +
+      'every rider I know and will be back for my next lid without a second thought.';
+    render(<ReviewCard review={{ ...REVIEW, body: longQuote }} />);
+    expect(screen.getByText(longQuote)).toBeInTheDocument();
+  });
+
   it('has no detectable accessibility violations', async () => {
     const { container } = render(<ReviewCard review={REVIEW} model="Velocity RS" />);
     expect(await axe(container)).toHaveNoViolations();

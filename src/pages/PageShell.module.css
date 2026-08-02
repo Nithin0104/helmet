@@ -1,0 +1,20 @@
+.page {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 48px 20px;
+  min-height: 50vh;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  font-size: 0.8125rem;
+}
+
+.title {
+  margin: 8px 0 0;
+  font-size: 2.125rem;
+  font-weight: 800;
+}

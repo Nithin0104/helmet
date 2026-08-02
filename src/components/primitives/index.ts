@@ -1,5 +1,6 @@
 export * from './Button/Button';
 export * from './ActionButton/ActionButton';
+export * from './SaveButton/SaveButton';
 export * from './Chip/Chip';
 export * from './Card/Card';
 export * from './Tabs/Tabs';

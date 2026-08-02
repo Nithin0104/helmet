@@ -65,6 +65,7 @@ const FAQ_RETURNS = {
 export const PRODUCTS: Product[] = [
   {
     id: 'velocity-rs-carbon',
+    featured: 'best',
     name: 'Velocity RS Carbon',
     brand: 'MT Helmets',
     tagline: 'Race-bred carbon shell for the track and the highway',
@@ -148,6 +149,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'iridium-gp',
+    featured: 'best',
     name: 'Iridium GP',
     brand: 'SMK',
     tagline: 'MotoGP-inspired shell for serious track days',
@@ -218,6 +220,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'circuit-r',
+    featured: 'best',
     name: 'Circuit R',
     brand: 'Axor',
     tagline: 'Everyday sport riding, race-day sharp',
@@ -296,6 +299,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'urban-gt-modular',
+    featured: 'best',
     name: 'Urban GT Modular',
     brand: 'Vega',
     tagline: 'Flip up the chin bar, stay in the saddle',
@@ -383,6 +387,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'trail-pro-adv',
+    featured: 'new',
     name: 'Trail Pro ADV',
     brand: 'Steelbird',
     tagline: 'Built for gravel, tarmac, and everything between',
@@ -458,6 +463,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'vega-tour',
+    featured: 'new',
     name: 'Vega Tour',
     brand: 'Vega',
     tagline: 'All-day comfort for the long haul',
@@ -536,6 +542,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'noir-track',
+    featured: 'new',
     name: 'Noir Track',
     brand: 'Studds',
     tagline: 'Minimalist shell, maximalist protection',
@@ -606,6 +613,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'summit-adv-carbon',
+    featured: 'new',
     name: 'Summit ADV Carbon',
     brand: 'Royal Enfield',
     tagline: 'The carbon adventure shell for cross-country riders',
@@ -685,4 +693,14 @@ export const PRODUCTS: Product[] = [
 
 export function getProduct(id: string): Product | undefined {
   return PRODUCTS.find((product) => product.id === id);
+}
+
+/** Products tagged for the "Bestsellers" home rail. Works on any catalog list. */
+export function getBestsellers(list: Product[] = PRODUCTS): Product[] {
+  return list.filter((product) => product.featured === 'best');
+}
+
+/** Products tagged for the "New Arrivals" home rail. Works on any catalog list. */
+export function getNewArrivals(list: Product[] = PRODUCTS): Product[] {
+  return list.filter((product) => product.featured === 'new');
 }

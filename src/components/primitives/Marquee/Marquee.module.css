@@ -14,8 +14,21 @@
   padding-right: var(--gap);
   flex: none;
   min-width: 100%;
-  animation: marquee var(--speed) linear infinite;
+  animation: marqueeScroll var(--speed) linear infinite;
   animation-direction: var(--dir);
+}
+
+/* Two identical <track>s sit side by side; each must translate a full -100% of
+   its own width so copy #2 lands exactly where copy #1 started (seamless loop).
+   Scoped here — the global `marquee` keyframe is -50% and tuned for BrandStrip's
+   single doubled-content track, a different pattern. */
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 .pauseHover:hover .track {
@@ -26,7 +39,7 @@
   display: inline-flex;
   align-items: center;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);

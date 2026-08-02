@@ -2,6 +2,10 @@
   border: 1px solid var(--border);
   background: var(--surface);
   padding: 16px;
+  /* Reset the Marquee's `white-space: nowrap` so quotes wrap inside the card
+     instead of overflowing into the next one. */
+  white-space: normal;
+  overflow-wrap: break-word;
   transition:
     transform 0.18s ease,
     border-color 0.18s ease;
@@ -23,7 +27,7 @@
 
 .stars {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--gold);
   margin-bottom: 10px;
   letter-spacing: 1px;
@@ -31,14 +35,14 @@
 
 .title {
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 6px;
 }
 
 .quote {
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.55;
   color: #d4d4d8;
   margin: 0 0 14px;
@@ -47,7 +51,7 @@
 
 .meta {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--text-muted-2);
 }
 

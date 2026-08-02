@@ -22,11 +22,11 @@
 }
 
 .sm .word {
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 .md .word {
-  font-size: 19px;
+  font-size: 1.1875rem;
 }
 .lg .word {
-  font-size: 20px;
+  font-size: 1.25rem;
 }

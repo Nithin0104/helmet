@@ -50,4 +50,6 @@ export interface Product {
   specs?: Spec[];
   faqs?: Faq[];
   reviews?: Review[];
+  /** Home-rail curation tag: which featured rail this product belongs to. */
+  featured?: 'best' | 'new';
 }

@@ -42,6 +42,7 @@ future API contract" seam, not throwaway work.
 
 - **HomePage** — hero (accent glow, headline, CTAs), BrandStrip, featured product rails
   (`ProductCard`), category cards, stats (`StatCard`/`CountUp`), marquee, scroll-reveal sections.
+  Full section-by-section port plan: [`phase-3-home.md`](./phase-3-home.md).
 - **ShopPage (PLP)** — filter sidebar/sheet (type = `category`, brand, price via `RangeSlider`,
   `Checkbox`, `Chip`), sort control, responsive product grid, `Pagination`. Reads/derives options
   from `data/products` (distinct `category` and `brand` values, price min/max — don't hardcode);

@@ -5,6 +5,7 @@ import { useCart } from '../cart/CartContext';
 import {
   Button,
   ActionButton,
+  SaveButton,
   Chip,
   Card,
   Tabs,
@@ -42,7 +43,7 @@ interface NavSection {
 }
 
 const NAV_SECTIONS: NavSection[] = [
-  { id: 'buttons', label: 'Buttons', items: ['Button', 'ActionButton', 'Chip'] },
+  { id: 'buttons', label: 'Buttons', items: ['Button', 'ActionButton', 'SaveButton', 'Chip'] },
   { id: 'cards', label: 'Cards', items: ['Card'] },
   { id: 'navigation', label: 'Navigation', items: ['Tabs', 'Breadcrumbs', 'Pagination'] },
   { id: 'overlays', label: 'Overlays', items: ['Modal', 'Tooltip', 'BottomSheet'] },
@@ -171,6 +172,19 @@ function ActionButtonDemo() {
       />
       <ActionButton variant="submit" onClick={() => new Promise((r) => setTimeout(r, 700))} />
       <span className={styles.hint}>{count} in cart</span>
+    </Row>
+  );
+}
+
+function SaveButtonDemo() {
+  const [a, setA] = useState(false);
+  const [b, setB] = useState(true);
+  return (
+    <Row>
+      <SaveButton saved={a} onToggle={setA} label="Velocity RS Carbon" />
+      <SaveButton saved={b} onToggle={setB} label="Urban GT Modular" />
+      <SaveButton saved={false} onToggle={() => {}} label="Trail Pro ADV" size="sm" />
+      <SaveButton saved onToggle={() => {}} label="Vega Tour" disabled />
     </Row>
   );
 }
@@ -541,6 +555,9 @@ export default function ShowcasePage() {
           </Bay>
           <Bay name="ActionButton">
             <ActionButtonDemo />
+          </Bay>
+          <Bay name="SaveButton">
+            <SaveButtonDemo />
           </Bay>
           <Bay name="Chip">
             <ChipDemo />

@@ -22,7 +22,7 @@
 .card:hover {
   transform: translateY(-6px);
   border-color: var(--accent-shadow);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
+  box-shadow: var(--shadow-card);
 }
 
 .fixed {
@@ -30,9 +30,11 @@
   max-width: 168px;
 }
 
+/* Grid/flex card: fills its track so a rail of cards stretches to the full row
+   width (and wraps on narrow screens) instead of leaving dead space. */
 .grow {
   flex: 1 1 200px;
-  max-width: 280px;
+  width: 100%;
 }
 
 /* ---- media / placeholder image ---- */
@@ -52,7 +54,7 @@
   background: linear-gradient(
     105deg,
     transparent 40%,
-    rgba(255, 255, 255, 0.05) 50%,
+    var(--overlay-sweep) 50%,
     transparent 60%
   );
   background-size: 220% 100%;
@@ -63,7 +65,7 @@
 
 .typeTag {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--text-dim-2);
   letter-spacing: 1px;
 }
@@ -73,7 +75,7 @@
   top: 8px;
   left: 8px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 0.5625rem;
   padding: 3px 6px;
   letter-spacing: 0.5px;
   background: var(--accent);
@@ -85,33 +87,19 @@
   color: var(--bg);
 }
 
+/* Positioning + hover-reveal only; the button's own visuals live in SaveButton.
+   A saved item (aria-pressed) stays visible even when the card isn't hovered. */
 .heart {
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(8, 8, 10, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: var(--text);
-  font-size: 13px;
   opacity: 0;
-  transition:
-    opacity 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
-.card:hover .heart {
+.card:hover .heart,
+.heart[aria-pressed='true'] {
   opacity: 1;
-}
-
-.heart:hover {
-  color: var(--accent);
-  border-color: var(--accent);
 }
 
 .soldOut {
@@ -125,7 +113,7 @@
 
 .soldOutTag {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 1.5px;
   color: var(--text);
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -140,7 +128,7 @@
   background: var(--accent);
   color: #fff;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 1.5px;
   font-weight: 700;
   padding: 11px;
@@ -167,13 +155,13 @@
 
 .brand {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--text-muted-2);
   letter-spacing: 1px;
 }
 
 .name {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: -0.3px;
   line-height: 1.15;
@@ -193,19 +181,19 @@
 }
 
 .stars {
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--gold);
 }
 
 .ratingValue {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--gold);
 }
 
 .reviewCount {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--text-dim);
 }
 
@@ -219,7 +207,7 @@
 
 .price {
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--text);
 }
@@ -231,14 +219,19 @@
   border: none;
   background: var(--accent);
   color: #fff;
-  font-size: 20px;
-  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   transition:
     transform 0.18s ease,
     background 0.18s ease;
+}
+
+/* A centered SVG cross (not a text glyph): its geometric centre matches the
+   button's, so the hover spin pivots cleanly in place instead of drifting. */
+.addIcon {
+  width: 15px;
+  height: 15px;
 }
 
 .add:hover:not(:disabled) {

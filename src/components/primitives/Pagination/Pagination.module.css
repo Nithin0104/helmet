@@ -18,7 +18,7 @@
   padding: 0 8px;
   border-radius: var(--radius-md);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-muted);
   transition: background var(--speed) ease, color var(--speed) ease;
@@ -48,7 +48,7 @@
   justify-content: center;
   min-width: 34px;
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 /* dots variant — for gallery/carousel-style pagers */

@@ -24,7 +24,7 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text);
   transition: background 0.16s ease, color 0.16s ease;
@@ -41,7 +41,7 @@
   min-width: 32px;
   text-align: center;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--text);
 }
@@ -49,19 +49,19 @@
 .sm .btn {
   width: 26px;
   height: 26px;
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 .sm .value {
   min-width: 24px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .lg .btn {
   width: 42px;
   height: 42px;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 .lg .value {
   min-width: 40px;
-  font-size: 16px;
+  font-size: 1rem;
 }

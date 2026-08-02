@@ -15,7 +15,7 @@
   width: 100%;
   padding: 18px 4px;
   text-align: left;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--text);
 }
@@ -27,7 +27,7 @@
 .chevron {
   flex: none;
   color: var(--text-dim);
-  font-size: 18px;
+  font-size: 1.125rem;
   transition: transform var(--speed) ease;
 }
 .open .chevron {
@@ -52,6 +52,6 @@
 .panelInner {
   padding: 0 4px 18px;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
 }

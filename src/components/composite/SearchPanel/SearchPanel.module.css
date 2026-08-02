@@ -35,7 +35,7 @@
 }
 
 .searchIcon {
-  font-size: 17px;
+  font-size: 1.0625rem;
   color: var(--text-dim);
 }
 
@@ -46,14 +46,14 @@
   outline: none;
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
 }
 
 .cancel {
   color: var(--accent);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.5px;
   padding: 6px 2px;
 }
@@ -62,7 +62,7 @@
   padding: 28px 18px;
   text-align: center;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-dim);
 }
 
@@ -98,7 +98,7 @@
 
 .thumbTag {
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 0.4375rem;
   color: var(--text-dim-2);
 }
 
@@ -109,13 +109,13 @@
 
 .resultMeta {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 0.5625rem;
   color: var(--text-muted-2);
   letter-spacing: 1px;
 }
 
 .resultName {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: -0.2px;
   overflow: hidden;
@@ -125,7 +125,7 @@
 
 .resultPrice {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -136,7 +136,7 @@
 
 .trendingHead {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   letter-spacing: 2px;
   color: var(--text-dim);
   margin-bottom: 12px;
@@ -150,7 +150,7 @@
 
 .chip {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #d4d4d8;
   background: var(--surface-raised);
   border: 1px solid rgba(255, 255, 255, 0.12);

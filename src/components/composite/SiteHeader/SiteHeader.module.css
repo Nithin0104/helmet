@@ -33,7 +33,7 @@
 }
 
 .navLink {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-muted-2);
   transition: color 0.15s ease;
@@ -86,7 +86,7 @@
 }
 
 .icon {
-  font-size: 18px;
+  font-size: 1.125rem;
   color: var(--text);
   padding: 0;
   display: inline-flex;
@@ -112,7 +112,7 @@
   background: var(--accent);
   color: #fff;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   min-width: 16px;
   height: 16px;
@@ -143,7 +143,7 @@
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 1px;
   color: var(--text-muted-2);
 }

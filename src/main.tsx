@@ -6,6 +6,7 @@ import './styles/accents.css';
 import './styles/global.css';
 import { ThemeProvider } from './theme/ThemeContext';
 import { CartProvider } from './cart/CartContext';
+import { WishlistProvider } from './wishlist/WishlistContext';
 import App from './App.tsx';
 
 createRoot(document.getElementById('root')!).render(
@@ -13,7 +14,9 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <ThemeProvider>
         <CartProvider>
-          <App />
+          <WishlistProvider>
+            <App />
+          </WishlistProvider>
         </CartProvider>
       </ThemeProvider>
     </BrowserRouter>

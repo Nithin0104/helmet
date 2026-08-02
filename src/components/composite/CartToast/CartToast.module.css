@@ -22,7 +22,7 @@
   border: 1px solid var(--accent);
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   padding: 14px 24px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);

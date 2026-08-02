@@ -6,6 +6,12 @@
   --surface-alt: #0e0e10;
   --surface-raised: #141417;
   --border: rgba(255, 255, 255, 0.09);
+  /* Heavier white-alpha borders/overlays from the DC source (not hairlines). */
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --border-control: rgba(255, 255, 255, 0.14);
+  --overlay-sweep: rgba(255, 255, 255, 0.05);
+  --surface-hover: rgba(255, 255, 255, 0.04);
+  --scrim: rgba(8, 8, 10, 0.97);
 
   /* text */
   --text: #f4f3f1;
@@ -13,11 +19,15 @@
   --text-muted-2: #8a8a8f;
   --text-dim: #6a6a70;
   --text-dim-2: #4d4d54;
+  --text-soft: #b0b0b6;
 
   /* semantic */
   --gold: #c9a227;
   --success: #1f9d55;
   --danger: #c0392b;
+
+  /* shadow */
+  --shadow-card: 0 16px 34px rgba(0, 0, 0, 0.55);
 
   /* accent trio (default red — overridden per [data-accent] in accents.css) */
   --accent: #ff3b24;

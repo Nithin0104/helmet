@@ -5,6 +5,8 @@ export * from './SlideNav/SlideNav';
 export * from './SearchPanel/SearchPanel';
 export * from './SiteFooter/SiteFooter';
 export * from './ProductCard/ProductCard';
+export * from './ProductRail/ProductRail';
+export * from './CategoryCard/CategoryCard';
 export * from './CartToast/CartToast';
 export * from './BrandStrip/BrandStrip';
 export * from './ReviewCard/ReviewCard';
