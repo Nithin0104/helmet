@@ -17,8 +17,21 @@
 }
 
 .viewport {
+  position: relative;
   overflow: hidden;
   padding: 4px 0;
+}
+
+/* Renders one un-duplicated set of tiles, invisibly, purely so its scrollWidth
+   can be measured against the viewport to decide how many copies the real
+   (visible) track needs. Laid out (not display:none) so it has real geometry. */
+.measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .track {
