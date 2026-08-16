@@ -1,0 +1,68 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.track {
+  --h: 24px;
+  --w: 44px;
+  --pad: 3px;
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  border-radius: var(--radius-pill);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  transition: background 0.22s ease, border-color 0.22s ease;
+  flex: none;
+}
+.track:disabled {
+  cursor: not-allowed;
+}
+
+.small {
+  --h: 18px;
+  --w: 34px;
+  --pad: 2px;
+}
+.medium {
+  --h: 24px;
+  --w: 44px;
+  --pad: 3px;
+}
+.large {
+  --h: 30px;
+  --w: 56px;
+  --pad: 4px;
+}
+
+.thumb {
+  position: absolute;
+  top: var(--pad);
+  left: var(--pad);
+  width: calc(var(--h) - var(--pad) * 2 - 2px);
+  height: calc(var(--h) - var(--pad) * 2 - 2px);
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.22s ease;
+}
+
+.on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.on .thumb {
+  background: #fff;
+  transform: translateX(calc(var(--w) - var(--h)));
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--text);
+}

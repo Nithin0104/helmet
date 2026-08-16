@@ -1,0 +1,211 @@
+.root {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-sans);
+  color: var(--text);
+}
+.savedRow {
+  opacity: 0.82;
+}
+
+.media {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--border);
+  background: repeating-linear-gradient(
+    135deg,
+    var(--surface-raised) 0 12px,
+    var(--surface) 12px 24px
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mediaTag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-dim-2);
+  letter-spacing: 1px;
+}
+
+.body {
+  min-width: 0;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.titleCol {
+  min-width: 0;
+}
+.brand {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+.model {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+  margin-top: 3px;
+  text-wrap: pretty;
+}
+.lineTotal {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--text-soft);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  padding: 5px 9px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  border: 1px solid var(--border-strong);
+}
+
+.stock {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  margin-top: 9px;
+}
+.stockOk {
+  color: var(--success);
+}
+.stockLow {
+  color: var(--gold);
+}
+.stockOut {
+  color: var(--danger);
+}
+
+.eta {
+  font-size: 12px;
+  color: var(--text-muted-2);
+  margin-top: 5px;
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.acts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.iconBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid var(--border-control);
+  color: var(--text-muted-2);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease, transform 0.12s ease;
+}
+.iconBtn:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
+}
+.iconBtn:active {
+  transform: scale(0.92);
+}
+.danger:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Tooltip — visual affordance only; the accessible name is the aria-label. */
+.iconBtn::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%) translateY(3px);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-control);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  padding: 5px 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  z-index: 5;
+}
+.iconBtn:hover::after,
+.iconBtn:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+@media (hover: none) {
+  .iconBtn::after {
+    display: none;
+  }
+}
+
+.unit {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+
+@media (min-width: 720px) {
+  .root {
+    grid-template-columns: 108px 1fr;
+    gap: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconBtn,
+  .iconBtn::after {
+    transition: none;
+  }
+}

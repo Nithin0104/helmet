@@ -1,0 +1,159 @@
+.shell {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-family: var(--font-sans);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 4, 6, 0.72);
+  backdrop-filter: blur(3px);
+  animation: apexsgFade 0.2s ease;
+}
+
+.panel {
+  position: relative;
+  width: 100%;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-control);
+  padding: 20px 20px 26px;
+  overflow-y: auto;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+  border-radius: 16px 16px 0 0;
+  max-height: 82vh;
+  animation: apexsgUp 0.34s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted-2);
+  margin-top: 4px;
+}
+
+.close {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.close:hover {
+  border-color: var(--border-strong);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.headCell {
+  padding: 9px 12px;
+  background: var(--bg-alt);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--text-dim);
+}
+
+.cell {
+  padding: 11px 12px;
+  background: var(--surface-raised);
+  color: var(--text-soft);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.cellLead {
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 13px;
+}
+.cellOn {
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-raised));
+}
+.cellOnLead {
+  color: #fff;
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.tip {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-top: 16px;
+}
+
+@media (min-width: 800px) {
+  .shell {
+    align-items: center;
+  }
+  .panel {
+    animation: apexsgIn 0.26s cubic-bezier(0.2, 0.7, 0.2, 1);
+    border-radius: 0;
+    max-width: 560px;
+    margin: 0 auto;
+    max-height: 76vh;
+  }
+}
+
+@keyframes apexsgUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes apexsgIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes apexsgFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .scrim {
+    animation: none;
+  }
+}

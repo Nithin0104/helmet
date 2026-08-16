@@ -1,0 +1,115 @@
+.wrap {
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+}
+.selected {
+  color: var(--text);
+}
+
+.guide {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 4px 0;
+  transition: opacity 0.18s ease;
+}
+.guide:hover {
+  opacity: 0.75;
+}
+
+.grid {
+  display: grid;
+  gap: 8px;
+}
+
+.opt {
+  min-height: 56px;
+  padding: 10px 6px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--border-control);
+  background: transparent;
+  color: var(--text-soft);
+  font-family: var(--font-sans);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.12s ease;
+}
+.opt:hover:not(.soldOut):not(.active) {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.opt:active:not(.soldOut) {
+  transform: scale(0.95);
+}
+.opt:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 0 3px var(--accent-shadow);
+}
+
+.soldOut {
+  cursor: not-allowed;
+  color: var(--text-dim-2);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+.optLabel {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.note {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  margin-top: 3px;
+}
+.noteLow {
+  color: var(--gold);
+}
+.active .noteLow {
+  color: rgba(255, 255, 255, 0.85);
+}
+.noteOut {
+  color: var(--danger-dim);
+}
+
+.helper {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted-2);
+  margin-top: 10px;
+}

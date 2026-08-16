@@ -1,0 +1,32 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  display: inline-block;
+  transform: rotate(45deg);
+  transition: background 0.2s ease;
+}
+
+.word {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.sm .word {
+  font-size: 1.125rem;
+}
+.md .word {
+  font-size: 1.1875rem;
+}
+.lg .word {
+  font-size: 1.25rem;
+}

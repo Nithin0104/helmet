@@ -1,0 +1,35 @@
+.nav {
+  display: flex;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.link {
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+  transition: color var(--speed) ease;
+}
+a.link:hover {
+  color: var(--accent);
+}
+
+.current {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.sep {
+  color: var(--text-dim-2);
+  font-size: 0.8125rem;
+}

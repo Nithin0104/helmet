@@ -1,0 +1,282 @@
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient accent glow behind the page head. */
+.glow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  max-width: 100%;
+  height: 340px;
+  background: radial-gradient(ellipse at center, var(--accent-shadow), transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  /* Same top gap + side gutters as the other store pages (Home/Product/Cart)
+     so content lines up under the nav consistently. Sides step 18 → 28 at the
+     desktop breakpoint (see below), matching ProductPage. */
+  padding: 14px 18px 60px;
+}
+
+@media (min-width: 900px) {
+  .container {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+}
+
+/* ---- page head ---- */
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.45;
+  max-width: 46ch;
+}
+
+.headControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---- body: sidebar + main ---- */
+.body {
+  display: flex;
+  gap: 34px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.sidebar {
+  width: 236px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 88px;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- filter groups (sidebar / sheet) ---- */
+.group {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Fill the container in both the desktop sidebar (236px) and the wider mobile
+   sheet, overriding FilterGroup's fixed 236px so the content lines up with the
+   full-width sheet footer instead of hugging the left edge. */
+.filterList .group {
+  width: 100%;
+}
+
+.groupLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+/* Collapsible head for the price group — mirrors FilterGroup's accordion head so
+   every filter section reads and toggles the same way. */
+.collapHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0 0 12px;
+  text-align: left;
+  cursor: pointer;
+}
+.collapTitle {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  flex: 1;
+}
+.collapChev {
+  font-size: 0.625rem;
+  color: var(--text-muted-2);
+  transition: transform 0.2s ease;
+}
+.collapChevClosed {
+  transform: rotate(-90deg);
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+
+.priceMax {
+  color: var(--accent);
+}
+
+/* Toggle rendered label-left, switch-right, full-width and clickable. */
+.stockToggle {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 100%;
+  padding: 18px 0 2px;
+}
+
+/* ---- results grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--plp-cols, 3), minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Promo occupies a single card-sized cell (matching the DC source) and stretches to
+   the card-row height; distribute its content so the headline sits up top and the CTA
+   at the bottom instead of leaving a large empty band. */
+.promo {
+  justify-content: space-between;
+  min-height: 0;
+}
+
+.pager {
+  margin-top: 32px;
+}
+
+.chips {
+  margin: 16px 0 4px;
+  /* Reserve one row of chips so applying the first filter doesn't nudge the grid
+     down (a chip is taller than the bare count text). Sized to the measured
+     one-chip bar height (chip 29.5px + 16px padding + 1px border ≈ 47.5, rounded
+     up so sub-pixel rounding never pushes past it). The bar grows only once chips
+     wrap to a second row. */
+  min-height: 48px;
+  align-content: center;
+}
+
+/* ---- mobile filter/sort bar ---- */
+.mobileBar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  padding: 10px 16px;
+  background: color-mix(in srgb, var(--bg-alt) 90%, transparent);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+
+.filterBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  height: 40px;
+  background: var(--surface);
+  border: 1px solid var(--border-control);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.filterBtn:active {
+  transform: scale(0.97);
+}
+
+.filterBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+.mobileSort {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- mobile filter sheet footer ---- */
+.sheetFooter {
+  display: flex;
+  gap: 10px;
+  padding: 16px 0 4px;
+  position: sticky;
+  bottom: 0;
+  background: var(--surface-alt);
+}
+
+.sheetClear,
+.sheetApply {
+  flex: 1;
+  height: 46px;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--border-control);
+}
+
+.sheetClear {
+  background: transparent;
+  color: var(--text);
+}
+
+.sheetApply {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.sheetApply:active {
+  transform: scale(0.98);
+}

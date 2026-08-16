@@ -1,0 +1,90 @@
+.badge {
+  --tone: var(--accent);
+  --tone-shadow: var(--accent-shadow);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.sm {
+  padding: 2px 8px;
+  font-size: 0.625rem;
+}
+
+.icon {
+  display: inline-flex;
+  font-size: 1.1em;
+}
+
+/* tones — just remap the --tone vars, variants consume them */
+.accent {
+  --tone: var(--accent);
+  --tone-shadow: var(--accent-shadow);
+}
+.success {
+  --tone: var(--success);
+  --tone-shadow: rgba(31, 157, 85, 0.45);
+}
+.danger {
+  --tone: var(--danger);
+  --tone-shadow: rgba(192, 57, 43, 0.45);
+}
+.gold {
+  --tone: var(--gold);
+  --tone-shadow: rgba(201, 162, 39, 0.45);
+}
+.neutral {
+  --tone: var(--text-muted);
+  --tone-shadow: rgba(255, 255, 255, 0.25);
+}
+
+/* variants */
+.soft {
+  background: color-mix(in srgb, var(--tone) 16%, transparent);
+  color: var(--tone);
+}
+.solid {
+  background: var(--tone);
+  color: #fff;
+}
+.neutral.solid {
+  color: var(--bg);
+}
+.outline {
+  background: transparent;
+  border-color: var(--tone);
+  color: var(--tone);
+}
+
+.dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  color: var(--text-muted);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  padding: 2px 4px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+.dot .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tone);
+  flex: none;
+}
+.dot .pulse {
+  animation: pulseRing 1.4s ease-out infinite;
+}

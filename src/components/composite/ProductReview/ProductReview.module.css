@@ -1,0 +1,97 @@
+.card {
+  font-family: var(--font-sans);
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.who {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  color: #fff;
+  background: var(--accent);
+}
+
+.whoText {
+  min-width: 0;
+}
+
+.author {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.1px;
+  color: var(--text);
+}
+
+.stars {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #e0c05a;
+  letter-spacing: 1px;
+}
+
+.date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 12px;
+  letter-spacing: -0.2px;
+  color: var(--text);
+}
+
+.body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-top: 5px;
+  text-wrap: pretty;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--success);
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}

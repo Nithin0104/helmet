@@ -1,0 +1,68 @@
+.card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px;
+  /* Reset the Marquee's `white-space: nowrap` so quotes wrap inside the card
+     instead of overflowing into the next one. */
+  white-space: normal;
+  overflow-wrap: break-word;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-shadow);
+}
+
+.fixed {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.fluid {
+  width: 100%;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.star {
+  color: var(--gold);
+}
+
+/* Filled portion of the rating (outline stars for the remainder). */
+.starFilled {
+  fill: currentColor;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.quote {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: #d4d4d8;
+  margin: 0 0 14px;
+  font-family: var(--font-sans);
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted-2);
+}
+
+.verified {
+  color: var(--success);
+}

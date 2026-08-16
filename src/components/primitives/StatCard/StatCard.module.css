@@ -1,0 +1,46 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.icon {
+  display: inline-flex;
+  color: var(--accent);
+  font-size: 1.375rem;
+  margin-bottom: 4px;
+}
+
+.value {
+  font-family: var(--font-mono);
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.label {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+.delta.up {
+  color: var(--success);
+}
+.delta.down {
+  color: var(--danger);
+}

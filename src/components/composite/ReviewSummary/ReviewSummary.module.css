@@ -1,0 +1,106 @@
+.wrap {
+  width: 100%;
+  font-family: var(--font-sans);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.scoreCol {
+  text-align: center;
+  padding: 4px 0;
+}
+
+.score {
+  font-family: var(--font-mono);
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--accent);
+}
+
+.starRow {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  margin-top: 6px;
+}
+.star {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.16);
+}
+.starOn {
+  color: var(--gold);
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.barStar {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted-2);
+  min-width: 22px;
+}
+
+.track {
+  flex: 1;
+  height: 6px;
+  background: #1a1a1e;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  transition: width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.fillHigh {
+  background: var(--gold);
+}
+.fillMid {
+  background: var(--text-muted-2);
+}
+.fillLow {
+  background: var(--danger-dim);
+}
+
+.barCount {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  min-width: 30px;
+  text-align: right;
+}
+
+@media (min-width: 640px) {
+  .wrap {
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+}

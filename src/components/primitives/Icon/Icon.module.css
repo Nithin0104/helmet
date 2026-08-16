@@ -1,0 +1,9 @@
+/* CSS width/height override Lucide's inline width/height attributes so sizing
+   comes from the --icon-* tokens (via --icon-size, set inline per instance). */
+.icon {
+  width: var(--icon-size, var(--icon-md));
+  height: var(--icon-size, var(--icon-md));
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}

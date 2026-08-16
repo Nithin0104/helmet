@@ -1,0 +1,36 @@
+@keyframes cartToastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 120;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #181818;
+  border: 1px solid var(--accent);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 14px 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  animation: cartToastIn 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+  white-space: nowrap;
+}
+
+.icon {
+  color: var(--accent);
+  font-weight: 700;
+}

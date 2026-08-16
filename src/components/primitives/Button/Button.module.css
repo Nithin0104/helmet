@@ -1,0 +1,189 @@
+.btn {
+  --btn-pad-y: 12px;
+  --btn-pad-x: 22px;
+  --btn-font: 14px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--btn-font);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition:
+    transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+  overflow: hidden;
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* sizes */
+.sm {
+  --btn-pad-y: 8px;
+  --btn-pad-x: 16px;
+  --btn-font: 13px;
+}
+.md {
+  --btn-pad-y: 12px;
+  --btn-pad-x: 22px;
+  --btn-font: 14px;
+}
+.lg {
+  --btn-pad-y: 15px;
+  --btn-pad-x: 30px;
+  --btn-font: 16px;
+}
+
+/* fill — solid accent, the default CTA */
+.fill {
+  background: var(--accent);
+  color: #fff;
+}
+.fill:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 10px 26px var(--accent-shadow);
+}
+.fill:active {
+  transform: translateY(1px);
+}
+
+/* lift — rises on hover */
+.lift {
+  background: var(--accent);
+  color: #fff;
+}
+.lift:hover {
+  transform: translateY(-3px);
+  background: var(--accent-hover);
+  box-shadow: 0 12px 28px var(--accent-shadow);
+}
+.lift:active {
+  transform: translateY(-1px);
+}
+
+/* shine — sweeping gloss across the surface */
+.shine {
+  background: var(--accent);
+  color: #fff;
+}
+.shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 80%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+.shine:hover::after {
+  transform: translateX(120%);
+}
+.shine:hover {
+  background: var(--accent-hover);
+}
+
+/* ghost — hairline outline, fills on hover */
+.ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+.ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.03);
+}
+.ghost:active {
+  transform: translateY(1px);
+}
+
+/* icon — square, for a single glyph */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn.icon {
+  padding: var(--btn-pad-y);
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  border-color: var(--border);
+}
+.btn.icon:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* press — chunky with a bottom shadow that collapses on click */
+.press {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--accent-shadow);
+}
+.press:hover {
+  background: var(--accent-hover);
+}
+.press:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--accent-shadow);
+}
+
+/* danger — solid danger with a pulse ring */
+.danger {
+  background: var(--danger);
+  color: #fff;
+}
+.danger:hover {
+  filter: brightness(1.08);
+  animation: pulseRing 1s ease-out infinite;
+}
+.danger:active {
+  transform: translateY(1px);
+}
+
+/* text wrapper — kept as an element so icon spacing is symmetric */
+.text {
+  display: inline-block;
+}
+
+/* loading spinner */
+.loading .text,
+.loading .icon {
+  opacity: 0;
+}
+.spinner {
+  position: absolute;
+  width: 1.05em;
+  height: 1.05em;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+.ghost .spinner {
+  border-color: var(--border);
+  border-top-color: var(--accent);
+}
