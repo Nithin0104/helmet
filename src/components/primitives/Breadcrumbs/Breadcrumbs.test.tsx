@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'vitest-axe';
 import { Breadcrumbs } from './Breadcrumbs';
 import type { BreadcrumbItem } from './Breadcrumbs';
@@ -28,6 +29,26 @@ describe('Breadcrumbs', () => {
   it('renders a single-item trail without crashing', () => {
     render(<Breadcrumbs items={[{ label: 'Home' }]} />);
     expect(screen.getByText('Home')).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('intercepts a plain left-click for SPA navigation, keeping the href', async () => {
+    const user = userEvent.setup();
+    const onNavigate = vi.fn();
+    render(<Breadcrumbs items={items} onNavigate={onNavigate} />);
+
+    const home = screen.getByRole('link', { name: 'Home' });
+    expect(home).toHaveAttribute('href', '/'); // real anchor preserved
+    await user.click(home);
+
+    expect(onNavigate).toHaveBeenCalledWith('/', expect.anything());
+  });
+
+  it('does not intercept when no onNavigate is given', async () => {
+    const user = userEvent.setup();
+    render(<Breadcrumbs items={items} />);
+    // No handler, no throw — the anchor behaves as a normal link.
+    await user.click(screen.getByRole('link', { name: 'Shop' }));
+    expect(screen.getByRole('link', { name: 'Shop' })).toBeInTheDocument();
   });
 
   it('has no detectable accessibility violations', async () => {

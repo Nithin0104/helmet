@@ -1,0 +1,44 @@
+.table {
+  width: 100%;
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+.row {
+  display: block;
+  padding: 13px 10px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+}
+.striped {
+  background: rgba(255, 255, 255, 0.022);
+}
+
+.label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.value {
+  display: block;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+@media (min-width: 640px) {
+  .row {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+  .label {
+    margin-bottom: 0;
+  }
+}

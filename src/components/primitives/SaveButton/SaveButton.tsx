@@ -1,5 +1,7 @@
 import type { MouseEvent } from 'react';
+import { Heart } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './SaveButton.module.css';
 
 export type SaveButtonSize = 'sm' | 'md';
@@ -50,9 +52,7 @@ export function SaveButton({
       onClick={handleClick}
       className={cx(styles.btn, styles[size], saved && styles.saved, className)}
     >
-      <span aria-hidden className={styles.icon}>
-        {saved ? '♥' : '♡'}
-      </span>
+      <Icon icon={Heart} size="sm" className={styles.icon} />
     </button>
   );
 }

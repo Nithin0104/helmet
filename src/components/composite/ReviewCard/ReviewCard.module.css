@@ -26,11 +26,19 @@
 }
 
 .stars {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  display: flex;
+  gap: 2px;
   color: var(--gold);
   margin-bottom: 10px;
-  letter-spacing: 1px;
+}
+
+.star {
+  color: var(--gold);
+}
+
+/* Filled portion of the rating (outline stars for the remainder). */
+.starFilled {
+  fill: currentColor;
 }
 
 .title {

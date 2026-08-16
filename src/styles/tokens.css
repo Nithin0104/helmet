@@ -25,6 +25,8 @@
   --gold: #c9a227;
   --success: #1f9d55;
   --danger: #c0392b;
+  /* Muted danger for sold-out / out-of-stock copy (softer than --danger). */
+  --danger-dim: #8a5050;
 
   /* shadow */
   --shadow-card: 0 16px 34px rgba(0, 0, 0, 0.55);
@@ -38,6 +40,11 @@
   --font-sans: 'Archivo', system-ui, -apple-system, sans-serif;
   --font-mono: 'Space Mono', 'SFMono-Regular', monospace;
 
+  /* icon sizes */
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+
   /* radii */
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -46,4 +53,6 @@
 
   /* layout */
   --max-w: 1280px;
+  /* Max height of a scrollable filter option list before it scrolls internally. */
+  --filter-list-max-h: 240px;
 }

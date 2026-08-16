@@ -1,0 +1,194 @@
+.wrap {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-sans);
+}
+
+/* ---- trigger ---- */
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 210px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+  padding: 10px 14px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    transform 0.12s ease;
+}
+.trigger:active {
+  transform: scale(0.98);
+}
+.trigger:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+.trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.label {
+  color: var(--text-muted-2);
+  margin-right: 6px;
+}
+.value {
+  flex: 1;
+  text-align: left;
+}
+.caret {
+  margin-left: 10px;
+  font-size: 0.625rem;
+  color: var(--text-muted-2);
+  transition: transform 0.2s ease;
+}
+.caretOpen {
+  transform: rotate(180deg);
+}
+
+/* ---- trigger variants ---- */
+.minimal {
+  background: transparent;
+  border: 1px solid var(--border-control);
+  border-radius: 0;
+}
+.boxed {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.pill {
+  background: var(--surface-hover);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-pill);
+}
+.underline {
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--accent);
+  border-radius: 0;
+}
+.solid {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  color: #fff;
+}
+.solid .label,
+.solid .caret {
+  color: rgba(255, 255, 255, 0.8);
+}
+.solid:hover:not(:disabled) {
+  border-color: var(--accent-hover);
+  background: var(--accent-hover);
+}
+
+/* ---- panel ---- */
+.panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 6;
+  min-width: 100%;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border-control);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  animation: var(--sel-anim, selDrop) 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.panelUp {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+
+/* panel skins per trigger variant */
+.panel_boxed {
+  background: var(--surface-raised);
+  border-color: var(--border);
+  border-radius: var(--radius-sm);
+}
+.panel_pill {
+  border-radius: 14px;
+}
+.panel_solid {
+  background: var(--surface-raised);
+  border-color: var(--accent-shadow);
+  border-radius: 6px;
+}
+
+/* ---- options ---- */
+.option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 9px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--text-soft);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+.option:hover:not(:disabled),
+.option:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  outline: none;
+}
+.option:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.optionSelected {
+  color: var(--text);
+  font-weight: 700;
+}
+.optionLabel {
+  flex: 1;
+  text-align: left;
+}
+.tick {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--accent);
+}
+
+@keyframes selDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes selRise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}

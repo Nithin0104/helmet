@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './Pagination.module.css';
 
 export type PaginationVariant = 'numbers' | 'dots';
@@ -95,7 +97,7 @@ export function Pagination({
             aria-label="Previous page"
             onClick={() => go(current - 1)}
           >
-            ‹
+            <Icon icon={ChevronLeft} size="sm" />
           </button>
         )}
         {pages.map((p, i) =>
@@ -123,7 +125,7 @@ export function Pagination({
             aria-label="Next page"
             onClick={() => go(current + 1)}
           >
-            ›
+            <Icon icon={ChevronRight} size="sm" />
           </button>
         )}
       </div>

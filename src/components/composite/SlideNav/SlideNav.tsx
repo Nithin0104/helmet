@@ -1,7 +1,9 @@
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
+import { X } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../../primitives';
 import { useFocusTrap } from '../../../hooks/useFocusTrap';
 import type { NavItem } from '../../../data/navigation';
 import { MOBILE_NAV } from '../../../data/navigation';
@@ -36,7 +38,7 @@ export function SlideNav({ open, onClose, items = MOBILE_NAV, active, className 
       <div className={styles.top}>
         <span className={styles.eyebrow}>MENU</span>
         <button type="button" className={styles.close} aria-label="Close menu" onClick={onClose}>
-          ×
+          <Icon icon={X} size="sm" />
         </button>
       </div>
 

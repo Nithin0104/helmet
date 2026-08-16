@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './BottomSheet.module.css';
 
 export interface BottomSheetProps {
@@ -51,7 +53,7 @@ export function BottomSheet({
           <div className={styles.header}>
             <h2 className={styles.title}>{title}</h2>
             <button type="button" className={styles.close} aria-label="Close" onClick={onClose}>
-              ×
+              <Icon icon={X} size="sm" />
             </button>
           </div>
         )}

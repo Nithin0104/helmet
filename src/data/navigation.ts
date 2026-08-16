@@ -10,30 +10,30 @@ export interface NavItem {
 }
 
 /**
- * Desktop top-nav and mobile slide-nav. The DC source (`SiteHeader.dc.html`)
- * gives these different defaults — desktop drops "Care" — but that leaves it
- * reachable from the mobile menu with no desktop entry point, so both lists
- * are kept in sync here instead.
+ * Desktop top-nav and mobile slide-nav — kept in sync so every category has an
+ * entry point on both. Each category links to its own PLP route (see
+ * `src/data/plp.ts` / `App.tsx`); "Brands" has no dedicated page yet so it points
+ * at the Helmets PLP for now.
  */
 export const DESKTOP_NAV: NavItem[] = [
-  { label: 'Helmets', href: '/shop' },
-  { label: 'Accessories', href: '/shop' },
-  { label: 'Brands', href: '/shop' },
-  { label: 'Care', href: '/shop' },
+  { label: 'Helmets', href: '/helmets' },
+  { label: 'Accessories', href: '/accessories' },
+  { label: 'Brands', href: '/helmets' },
+  { label: 'Spares & Care', href: '/spares-care' },
   { label: 'Showroom', href: '/showcase' },
 ];
 
 export const MOBILE_NAV: NavItem[] = [
-  { label: 'Helmets', href: '/shop' },
-  { label: 'Accessories', href: '/shop' },
-  { label: 'Brands', href: '/shop' },
-  { label: 'Care', href: '/shop' },
+  { label: 'Helmets', href: '/helmets' },
+  { label: 'Accessories', href: '/accessories' },
+  { label: 'Brands', href: '/helmets' },
+  { label: 'Spares & Care', href: '/spares-care' },
   { label: 'Showroom', href: '/showcase' },
 ];
 
 /** Scrolling promo strip messages. */
 export const ANNOUNCEMENTS: string[] = [
-  '★ FREE SHIPPING OVER ₹4,999',
+  'FREE SHIPPING OVER ₹4,999',
   'VISIT OUR PHYSICAL SHOWROOM',
   '10+ BRANDS IN STOCK',
   'EXPERT CUSTOMER SUPPORT',

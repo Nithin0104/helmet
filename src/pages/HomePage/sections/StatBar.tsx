@@ -1,4 +1,5 @@
-import { CountUp } from '../../../components/primitives';
+import { CountUp, Icon } from '../../../components/primitives';
+import { iconMap } from '../../../lib/icons';
 import { STATS } from '../../../data/home';
 import styles from '../HomePage.module.css';
 
@@ -10,6 +11,7 @@ export function StatBar() {
         <div key={stat.label} className={styles.stat}>
           <div className={styles.statValue}>
             <CountUp value={stat.value} suffix={stat.suffix} decimals={stat.decimals ?? 0} />
+            {stat.icon && <Icon icon={iconMap[stat.icon]} size="sm" className={styles.statStar} />}
           </div>
           <div className={styles.statLabel}>{stat.label}</div>
         </div>

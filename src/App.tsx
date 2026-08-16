@@ -1,7 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { SiteLayout } from './components/layout';
+import { useScrollToTop } from './hooks/useScrollToTop';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
+import { PLP_CONFIGS } from './data/plp';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
@@ -13,11 +15,16 @@ import ShowcasePage from './pages/ShowcasePage';
  * alone as a design/dev reference. Unknown paths redirect home.
  */
 function App() {
+  useScrollToTop();
   return (
     <Routes>
       <Route element={<SiteLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/helmets" element={<ShopPage config={PLP_CONFIGS.helmets} />} />
+        <Route path="/accessories" element={<ShopPage config={PLP_CONFIGS.accessories} />} />
+        <Route path="/spares-care" element={<ShopPage config={PLP_CONFIGS['spares-care']} />} />
+        {/* Back-compat: the PLP used to live at /shop. */}
+        <Route path="/shop" element={<Navigate to="/helmets" replace />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
       </Route>

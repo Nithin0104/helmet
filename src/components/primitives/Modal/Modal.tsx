@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './Modal.module.css';
 
 export type ModalVariant = 'center' | 'sheet';
@@ -62,7 +64,7 @@ export function Modal({
             {title && <h2 className={styles.title}>{title}</h2>}
             {showClose && (
               <button type="button" className={styles.close} aria-label="Close" onClick={onClose}>
-                ×
+                <Icon icon={X} size="sm" />
               </button>
             )}
           </div>

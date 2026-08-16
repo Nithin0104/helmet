@@ -3,8 +3,9 @@ import type { KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { cx } from '../../../lib/cx';
 import { useDragScroll } from '../../../hooks/useDragScroll';
+import { ArrowRight } from 'lucide-react';
 import { ProductCard } from '../ProductCard/ProductCard';
-import { Skeleton } from '../../primitives';
+import { Icon, Skeleton } from '../../primitives';
 import type { Product } from '../../../data/types';
 import styles from './ProductRail.module.css';
 
@@ -34,6 +35,8 @@ export interface ProductRailProps {
   loading?: boolean;
   /** How many skeleton cards to show while `loading`. Default 4. */
   skeletonCount?: number;
+  /** Cap the number of cards shown (per tab). Omit for no cap. */
+  limit?: number;
   className?: string;
 }
 
@@ -48,12 +51,13 @@ export function ProductRail({
   items = [],
   layout = 'shelf',
   seeAllHref,
-  seeAllLabel = 'SEE ALL →',
+  seeAllLabel = 'SEE ALL',
   sectionId,
   activeTabId,
   onTabChange,
   loading = false,
   skeletonCount = 4,
+  limit,
   className,
 }: ProductRailProps) {
   const [internalActive, setInternalActive] = useState(0);
@@ -70,7 +74,8 @@ export function ProductRail({
     onTabChange?.(tabs[i].id);
   };
 
-  const current = tabs ? (tabs[active]?.items ?? []) : items;
+  const source = tabs ? (tabs[active]?.items ?? []) : items;
+  const current = limit != null ? source.slice(0, limit) : source;
   const isShelf = layout === 'shelf';
   const base = sectionId ?? title.toLowerCase().replace(/\s+/g, '-');
   const titleId = `${base}-title`;
@@ -94,7 +99,7 @@ export function ProductRail({
         </h2>
         {seeAllHref && (
           <Link to={seeAllHref} className={styles.seeAll}>
-            {seeAllLabel}
+            {seeAllLabel} <Icon icon={ArrowRight} size="sm" />
           </Link>
         )}
       </div>

@@ -37,6 +37,16 @@ describe('ACCESSORIES contract', () => {
     expect(getBestsellers(ACCESSORIES).length).toBeGreaterThan(0);
     expect(getNewArrivals(ACCESSORIES).length).toBeGreaterThan(0);
   });
+
+  it('has enough items across categories to paginate the PLP', () => {
+    // Desktop page size is 9; the PLP needs more than one page to be meaningful.
+    expect(ACCESSORIES.length).toBeGreaterThan(9);
+    expect(new Set(ACCESSORIES.map((a) => a.category)).size).toBeGreaterThanOrEqual(4);
+  });
+
+  it('marks at least one item out of stock so the sold-out card is exercised', () => {
+    expect(ACCESSORIES.some((a) => a.inStock === false)).toBe(true);
+  });
 });
 
 describe('getAccessory contract', () => {

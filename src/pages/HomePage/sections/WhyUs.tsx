@@ -1,3 +1,5 @@
+import { Icon } from '../../../components/primitives';
+import { iconMap } from '../../../lib/icons';
 import { WHY_US } from '../../../data/home';
 import styles from '../HomePage.module.css';
 
@@ -14,9 +16,7 @@ export function WhyUs() {
       <div className={styles.why}>
         {WHY_US.map((item) => (
           <div key={item.title} className={styles.whyCard}>
-            <span className={styles.whyIcon} aria-hidden>
-              {item.icon}
-            </span>
+            <Icon icon={iconMap[item.icon]} size="lg" className={styles.whyIcon} />
             <div className={styles.whyTitle}>{item.title}</div>
             <div className={styles.whyBody}>{item.body}</div>
           </div>

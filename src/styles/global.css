@@ -10,6 +10,13 @@ body {
   height: 100%;
 }
 
+/* Always reserve the vertical scrollbar's space so pages whose height changes
+   (filtering to fewer results, opening a dropdown) don't jump sideways as the
+   scrollbar appears/disappears. */
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
   background: var(--bg);

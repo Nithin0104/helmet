@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { Star, Truck, Undo2, ShieldCheck } from 'lucide-react';
 import { useTheme } from '../theme/ThemeContext';
 import { ACCENTS, ACCENT_KEYS } from '../theme/accents';
 import { useCart } from '../cart/CartContext';
 import {
+  Icon,
   Button,
   ActionButton,
   SaveButton,
@@ -33,7 +35,24 @@ import {
   HoverZoom,
   CountUp,
   Marquee,
+  Select,
+  SegmentedToggle,
+  EmptyState,
+  PromoTile,
+  SizeGrid,
+  SpecTable,
+  TrustList,
 } from '../components/primitives';
+import {
+  FilterGroup,
+  AppliedFilterBar,
+  ProductGallery,
+  SwatchPicker,
+  ReviewSummary,
+  ProductReview,
+  StickyBuyBar,
+  SizeGuideSheet,
+} from '../components/composite';
 import styles from './ShowcasePage.module.css';
 
 interface NavSection {
@@ -50,13 +69,30 @@ const NAV_SECTIONS: NavSection[] = [
   {
     id: 'forms',
     label: 'Forms',
-    items: ['TextInput', 'Toggle', 'Checkbox', 'SearchBar', 'ColorSwatch', 'RangeSlider'],
+    items: ['TextInput', 'Toggle', 'Checkbox', 'SearchBar', 'ColorSwatch', 'RangeSlider', 'Select', 'SegmentedToggle'],
   },
   { id: 'data', label: 'Data display', items: ['Accordion', 'Badge', 'StatCard'] },
   { id: 'inputs', label: 'Inputs', items: ['Rating', 'QtyStepper'] },
-  { id: 'feedback', label: 'Feedback', items: ['Skeleton', 'Spinner', 'ProgressBar', 'Toast'] },
+  { id: 'feedback', label: 'Feedback', items: ['Skeleton', 'Spinner', 'ProgressBar', 'Toast', 'EmptyState'] },
   { id: 'media', label: 'Media', items: ['Carousel', 'HoverZoom'] },
   { id: 'motion', label: 'Motion', items: ['CountUp', 'Marquee'] },
+  { id: 'sections', label: 'Sections', items: ['PromoTile'] },
+  { id: 'filters', label: 'Filters', items: ['FilterGroup', 'AppliedFilterBar'] },
+  {
+    id: 'pdp',
+    label: 'PDP',
+    items: [
+      'ProductGallery',
+      'SwatchPicker',
+      'SizeGrid',
+      'SpecTable',
+      'TrustList',
+      'ReviewSummary',
+      'ProductReview',
+      'StickyBuyBar',
+      'SizeGuideSheet',
+    ],
+  },
 ];
 
 function slug(s: string) {
@@ -145,7 +181,7 @@ function ButtonDemo() {
       <Button variant="press" label="Press" />
       <Button variant="danger" label="Danger" />
       <Button variant="icon" aria-label="Icon button">
-        ★
+        <Icon icon={Star} />
       </Button>
       <Button variant="fill" label="Loading" loading />
       <Button variant="fill" label="Disabled" disabled />
@@ -532,6 +568,207 @@ function MarqueeDemo() {
   );
 }
 
+function SelectDemo() {
+  const [value, setValue] = useState('Featured');
+  const options = ['Featured', 'Price low→high', 'Price high→low', 'Newest', 'Top rated'];
+  return (
+    <div className={styles.stack}>
+      <Select label="Sort:" options={options} value={value} onChange={setValue} variant="minimal" />
+      <Row>
+        <Select options={options} variant="boxed" />
+        <Select options={options} variant="pill" />
+        <Select options={options} variant="solid" />
+      </Row>
+      <Select options={options} variant="underline" placement="up" />
+    </div>
+  );
+}
+
+function SegmentedToggleDemo() {
+  const [density, setDensity] = useState('3 columns');
+  const [tab, setTab] = useState('All');
+  return (
+    <div className={styles.stack}>
+      <SegmentedToggle variant="grid-density" value={density} onChange={setDensity} aria-label="Grid density" />
+      <SegmentedToggle variant="view-mode" shape="rounded" aria-label="View mode" />
+      <SegmentedToggle variant="text" shape="pill" value={tab} onChange={setTab} aria-label="Product filter" />
+    </div>
+  );
+}
+
+function EmptyStateDemo() {
+  return (
+    <div className={styles.stack}>
+      <EmptyState
+        variant="dashed"
+        title="No helmets match those filters"
+        body="Try widening your price range or clearing a filter or two to see more of the range."
+        ctaLabel="Clear all filters"
+        secondaryLabel="Browse all"
+      />
+      <EmptyState
+        variant="panel"
+        align="left"
+        tone="accent"
+        icon={<Icon icon={Star} size="lg" />}
+        kicker="WISHLIST"
+        title="Nothing saved yet"
+        body="Tap the heart on any helmet to keep it here."
+        ctaLabel="Shop the range"
+      />
+    </div>
+  );
+}
+
+function PromoTileDemo() {
+  return (
+    <div className={styles.stack}>
+      <PromoTile
+        variant="gradient"
+        kicker="SHOWROOM EXCLUSIVE"
+        headline="Trade in your old lid — get 15% off any track helmet."
+        ctaLabel="Book a fitting"
+        ctaHref="#"
+      />
+      <PromoTile variant="dark" layout="stack" kicker="NEW" headline="ECE 22.06 certified across the range." ctaLabel="Learn more" ctaHref="#" />
+      <Row>
+        <PromoTile variant="outline" headline="Free shipping over ₹5,000" ctaLabel="Shop" ctaHref="#" />
+        <PromoTile variant="hatch" headline="5 year shell warranty" ctaLabel="Details" ctaHref="#" />
+      </Row>
+    </div>
+  );
+}
+
+function FilterGroupDemo() {
+  const brands = [
+    { value: 'apex', label: 'APEX', count: 12 },
+    { value: 'strata', label: 'STRATA', count: 9 },
+    { value: 'nordvik', label: 'NORDVIK', count: 7 },
+    { value: 'ioniq', label: 'IONIQ', count: 6 },
+    { value: 'vanta', label: 'VANTA', count: 5 },
+  ];
+  const sizes = ['XS', 'S', 'M', 'L', 'XL'].map((s) => ({ value: s.toLowerCase(), label: s }));
+  const colours = [
+    { value: 'black', label: 'Black', hex: '#14141a' },
+    { value: 'white', label: 'White', hex: '#e8e8ea' },
+    { value: 'red', label: 'Red', hex: '#c0392b' },
+    { value: 'blue', label: 'Blue', hex: '#2e6bff' },
+    { value: 'silver', label: 'Silver', hex: '#b8b8bd' },
+  ];
+  return (
+    <Row>
+      <FilterGroup title="BRAND" options={brands} collapsible />
+      <FilterGroup title="TYPE" options={brands.slice(0, 4)} mode="single" variant="radio" searchable={false} />
+      <FilterGroup title="SIZE" options={sizes} variant="pill" searchable={false} />
+      <FilterGroup title="COLOUR" options={colours} variant="swatch" searchable={false} />
+    </Row>
+  );
+}
+
+function AppliedFilterBarDemo() {
+  const chips = [
+    { group: 'Brand', label: 'APEX' },
+    { group: 'Brand', label: 'NORDVIK' },
+    { group: 'Type', label: 'Track' },
+    { group: 'Price', label: '≤ ₹60,000' },
+  ];
+  return (
+    <div className={styles.stack}>
+      <AppliedFilterBar chips={chips} showGroups countLabel="Showing 1–9 of 24 helmets" />
+      <AppliedFilterBar chips={chips} variant="boxed" chipStyle="soft" />
+    </div>
+  );
+}
+
+const TRUST_DEMO = [
+  { icon: <Icon icon={Truck} size="sm" />, title: 'Express delivery', sub: 'Next-day dispatch before 2pm' },
+  { icon: <Icon icon={Undo2} size="sm" />, title: '15-day returns', sub: 'Unworn, tags attached' },
+  { icon: <Icon icon={ShieldCheck} size="sm" />, title: 'Genuine warranty', sub: 'Covered by the brand' },
+];
+
+function SwatchPickerDemo() {
+  const [i, setI] = useState(0);
+  return (
+    <SwatchPicker
+      label="Colour"
+      value={i}
+      onChange={setI}
+      items={[
+        { name: 'Matte Black', hex: '#1a1a1c' },
+        { name: 'Racing Red', hex: '#c0392b' },
+        { name: 'Pearl White', hex: '#f4f3f1' },
+        { name: 'Gunmetal Grey', hex: '#5a5d63' },
+      ]}
+    />
+  );
+}
+
+function SizeGridDemo() {
+  const [i, setI] = useState(2);
+  return (
+    <SizeGrid
+      label="Size"
+      value={i}
+      onChange={setI}
+      columns="auto"
+      helper="Measure ~1cm above the eyebrows."
+      onGuide={() => {}}
+      items={[
+        { label: 'XS', stock: 3 },
+        { label: 'S', stock: 8 },
+        { label: 'M', stock: 14 },
+        { label: 'L', stock: 11 },
+        { label: 'XL', stock: 2 },
+        { label: 'XXL', stock: 0 },
+      ]}
+    />
+  );
+}
+
+function StickyBuyBarDemo() {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div className={styles.stack}>
+      <Button variant="ghost" onClick={() => setVisible((v) => !v)}>
+        {visible ? 'Hide sticky bar' : 'Show sticky bar'}
+      </Button>
+      <StickyBuyBar
+        price="₹42,999"
+        meta="Matte Black · Size M · Qty 1"
+        label="Add to cart"
+        visible={visible}
+        desktop
+        onAdd={() => {}}
+      />
+    </div>
+  );
+}
+
+function SizeGuideSheetDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={styles.stack}>
+      <Button variant="fill" onClick={() => setOpen(true)}>
+        Open size guide
+      </Button>
+      <SizeGuideSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        highlight="M"
+        columns={['Size', 'Head (cm)', 'Hat']}
+        rows={[
+          ['XS', '53–54', '6¾'],
+          ['S', '55–56', '7'],
+          ['M', '57–58', '7¼'],
+          ['L', '59–60', '7½'],
+          ['XL', '61–62', '7¾'],
+          ['XXL', '63–64', '8'],
+        ]}
+      />
+    </div>
+  );
+}
+
 export default function ShowcasePage() {
   return (
     <div className={styles.page} id="top">
@@ -613,6 +850,12 @@ export default function ShowcasePage() {
           <Bay name="RangeSlider">
             <RangeSliderDemo />
           </Bay>
+          <Bay name="Select">
+            <SelectDemo />
+          </Bay>
+          <Bay name="SegmentedToggle">
+            <SegmentedToggleDemo />
+          </Bay>
         </Section>
 
         <Section id="data" title="Data display">
@@ -649,6 +892,9 @@ export default function ShowcasePage() {
           <Bay name="Toast">
             <ToastDemo />
           </Bay>
+          <Bay name="EmptyState">
+            <EmptyStateDemo />
+          </Bay>
         </Section>
 
         <Section id="media" title="Media">
@@ -666,6 +912,94 @@ export default function ShowcasePage() {
           </Bay>
           <Bay name="Marquee">
             <MarqueeDemo />
+          </Bay>
+        </Section>
+
+        <Section id="sections" title="Sections">
+          <Bay name="PromoTile">
+            <PromoTileDemo />
+          </Bay>
+        </Section>
+
+        <Section id="filters" title="Filters">
+          <Bay name="FilterGroup">
+            <FilterGroupDemo />
+          </Bay>
+          <Bay name="AppliedFilterBar">
+            <AppliedFilterBarDemo />
+          </Bay>
+        </Section>
+
+        <Section id="pdp" title="PDP">
+          <Bay name="ProductGallery">
+            <div style={{ maxWidth: 380 }}>
+              <ProductGallery
+                views={['Front', 'Side', '3/4 Angle', 'Back', 'Interior']}
+                tag="MATTE BLACK"
+                badge="NEW"
+                safety="ECE 22.06"
+                lightbox
+              />
+            </div>
+          </Bay>
+          <Bay name="SwatchPicker">
+            <SwatchPickerDemo />
+          </Bay>
+          <Bay name="SizeGrid">
+            <SizeGridDemo />
+          </Bay>
+          <Bay name="SpecTable">
+            <SpecTable
+              items={[
+                { label: 'Shell material', value: 'Carbon fibre composite' },
+                { label: 'Weight', value: '1,350g ± 50g (size M)' },
+                { label: 'Certification', value: 'ISI, ECE 22.06' },
+                { label: 'Retention', value: 'Double-D ring' },
+              ]}
+            />
+          </Bay>
+          <Bay name="TrustList">
+            <div style={{ display: 'grid', gap: 20 }}>
+              <TrustList items={TRUST_DEMO} layout="stack" />
+              <TrustList items={TRUST_DEMO} layout="row" />
+            </div>
+          </Bay>
+          <Bay name="ReviewSummary">
+            <ReviewSummary
+              score={4.7}
+              count={212}
+              distribution={[
+                { n: 5, count: 186 },
+                { n: 4, count: 18 },
+                { n: 3, count: 5 },
+                { n: 2, count: 2 },
+                { n: 1, count: 1 },
+              ]}
+            />
+          </Bay>
+          <Bay name="ProductReview">
+            <ProductReview
+              author="James T."
+              date="12 Jun 2026"
+              rating={5}
+              title="Best track helmet I've owned"
+              body="Lightweight, incredible ventilation, and the visor clarity is unmatched."
+              meta="Size L · Matte Black"
+            />
+            <ProductReview
+              author="David K."
+              date="14 May 2026"
+              rating={4}
+              title="Almost perfect"
+              body="Fit and finish are superb; only wish the visor mechanism was a touch smoother."
+              verified={false}
+            />
+          </Bay>
+          <Bay name="StickyBuyBar">
+            <StickyBuyBarDemo />
+          </Bay>
+          <Bay name="SizeGuideSheet">
+            <SizeGuideSheetDemo />
           </Bay>
         </Section>
       </main>

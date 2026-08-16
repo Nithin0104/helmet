@@ -1,6 +1,7 @@
 import { BrandStrip, ProductRail } from '../../components/composite';
 import { PRODUCTS, getBestsellers, getNewArrivals } from '../../data/products';
 import { ACCESSORIES } from '../../data/accessories';
+import { CARE } from '../../data/care';
 import { HomeHero } from './sections/HomeHero';
 import { CategoryStrip } from './sections/CategoryStrip';
 import { WhyUs } from './sections/WhyUs';
@@ -37,6 +38,7 @@ export default function HomePage() {
           tabs={helmetTabs}
           seeAllHref="/shop"
           layout="grid"
+          limit={5}
         />
       </Reveal>
       <Reveal>
@@ -46,6 +48,17 @@ export default function HomePage() {
           tabs={accessoryTabs}
           seeAllHref="/shop"
           layout="grid"
+          limit={5}
+        />
+      </Reveal>
+      <Reveal>
+        <ProductRail
+          sectionId="care"
+          title="Care"
+          items={CARE}
+          seeAllHref="/shop"
+          layout="grid"
+          limit={5}
         />
       </Reveal>
       <Reveal>

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../../../components/primitives';
 import { COMPARE } from '../../../data/home';
 import styles from '../HomePage.module.css';
 
@@ -15,7 +17,7 @@ export function CompareBand() {
           </h2>
           <p className={styles.compareCopy}>{COMPARE.copy}</p>
           <Link to={COMPARE.link.href} className={styles.compareLink}>
-            {COMPARE.link.label}
+            {COMPARE.link.label} <Icon icon={ArrowRight} size="sm" />
           </Link>
         </div>
         <div className={styles.compareVisual} aria-hidden>

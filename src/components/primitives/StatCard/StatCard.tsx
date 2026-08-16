@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { cx } from '../../../lib/cx';
 import { CountUp } from '../CountUp/CountUp';
+import { Icon } from '../Icon/Icon';
 import styles from './StatCard.module.css';
 
 export type StatTrend = 'up' | 'down';
@@ -43,7 +45,9 @@ export function StatCard({
       <span className={styles.label}>{label}</span>
       {delta != null && (
         <span className={cx(styles.delta, trend && styles[trend])}>
-          {trend === 'up' ? '▲' : trend === 'down' ? '▼' : null} {delta}
+          {trend === 'up' && <Icon icon={ChevronUp} size="sm" />}
+          {trend === 'down' && <Icon icon={ChevronDown} size="sm" />}
+          {delta}
         </span>
       )}
     </div>

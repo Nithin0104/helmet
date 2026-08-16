@@ -46,7 +46,7 @@ describe('SiteHeader', () => {
     renderWithProviders(<SiteHeader activePage="Helmets" />, { route: '/' });
 
     const helmets = screen.getByRole('link', { name: 'Helmets' });
-    expect(helmets).toHaveAttribute('href', '/shop');
+    expect(helmets).toHaveAttribute('href', '/helmets');
     expect(helmets).toHaveAttribute('aria-current', 'page');
     expect(screen.queryByRole('button', { name: 'Open menu' })).not.toBeInTheDocument();
   });

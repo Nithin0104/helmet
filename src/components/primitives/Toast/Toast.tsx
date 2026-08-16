@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
+import { X } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './Toast.module.css';
 
 export type ToastTone = 'default' | 'success' | 'error' | 'info';
@@ -52,7 +54,7 @@ export function Toast({
       )}
       {onDismiss && (
         <button type="button" className={styles.close} aria-label="Dismiss" onClick={onDismiss}>
-          ×
+          <Icon icon={X} size="sm" />
         </button>
       )}
     </div>

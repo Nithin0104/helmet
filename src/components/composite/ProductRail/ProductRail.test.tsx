@@ -38,6 +38,23 @@ describe('ProductRail', () => {
     expect(screen.getByRole('link', { name: 'Bravo' })).toBeInTheDocument();
   });
 
+  it('caps the number of cards at limit', () => {
+    const many = [make('a', 'Alpha'), make('b', 'Bravo'), make('c', 'Charlie')];
+    renderWithProviders(<ProductRail title="Helmets" items={many} limit={2} />, { route: '/' });
+    expect(screen.getByRole('link', { name: 'Alpha' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Bravo' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Charlie' })).not.toBeInTheDocument();
+  });
+
+  it('applies limit per tab', () => {
+    const bigTabs: RailTab[] = [
+      { id: 'best', label: 'Bestsellers', items: [make('a', 'Alpha'), make('b', 'Bravo'), make('c', 'Charlie')] },
+      { id: 'new', label: 'New Arrivals', items: NEW },
+    ];
+    renderWithProviders(<ProductRail title="Helmets" tabs={bigTabs} limit={2} />, { route: '/' });
+    expect(screen.queryByRole('link', { name: 'Charlie' })).not.toBeInTheDocument();
+  });
+
   it('switches content when a tab is selected', async () => {
     const user = userEvent.setup();
     renderWithProviders(<ProductRail title="Helmets" tabs={TABS} />, { route: '/' });

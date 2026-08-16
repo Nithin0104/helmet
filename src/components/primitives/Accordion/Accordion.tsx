@@ -1,6 +1,8 @@
 import { useId, useState } from 'react';
 import type { ReactNode } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './Accordion.module.css';
 
 export type AccordionMode = 'single' | 'multi';
@@ -55,9 +57,7 @@ export function Accordion({
               onClick={() => toggle(key)}
             >
               <span className={styles.q}>{q}</span>
-              <span className={styles.chevron} aria-hidden>
-                ⌄
-              </span>
+              <Icon icon={ChevronDown} size="sm" className={styles.chevron} />
             </button>
             <div className={styles.panelWrap}>
               <div className={styles.panel}>

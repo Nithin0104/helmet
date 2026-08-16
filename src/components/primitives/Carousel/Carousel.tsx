@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './Carousel.module.css';
 
 export interface CarouselProps {
@@ -80,7 +82,7 @@ export function Carousel({
             disabled={!loop && current === 0}
             onClick={() => goTo(current - 1)}
           >
-            ‹
+            <Icon icon={ChevronLeft} />
           </button>
           <button
             type="button"
@@ -89,7 +91,7 @@ export function Carousel({
             disabled={!loop && current === slides.length - 1}
             onClick={() => goTo(current + 1)}
           >
-            ›
+            <Icon icon={ChevronRight} />
           </button>
         </>
       )}

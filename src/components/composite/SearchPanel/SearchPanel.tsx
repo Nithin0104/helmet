@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../../primitives';
 import { formatPrice } from '../../../lib/format';
 import { useFocusTrap } from '../../../hooks/useFocusTrap';
 import { PRODUCTS } from '../../../data/products';
@@ -47,9 +49,7 @@ export function SearchPanel({ open, onClose, trending = TRENDING, className }: S
       <div ref={ref} className={styles.panel} role="dialog" aria-modal="true" aria-label="Search">
         <div className={styles.inner}>
           <div className={styles.searchRow}>
-            <span className={styles.searchIcon} aria-hidden>
-              ⌕
-            </span>
+            <Icon icon={Search} size="sm" className={styles.searchIcon} />
             <input
               className={styles.input}
               type="search"

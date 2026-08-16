@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { axe } from 'vitest-axe';
 import { useLocation } from 'react-router-dom';
-import { renderWithProviders, screen, userEvent } from '../../../../tests/utils';
+import { renderWithProviders, screen, userEvent, within } from '../../../../tests/utils';
 import { useCart } from '../../../cart/CartContext';
 import type { Product } from '../../../data/types';
 import { ProductCard } from './ProductCard';
@@ -154,6 +154,40 @@ describe('ProductCard', () => {
 
     await user.click(screen.getByRole('button', { name: '+ QUICK ADD' }));
     expect(screen.getByTestId('count')).toHaveTextContent('1');
+  });
+
+  it('shows the struck original price and % off when on offer', () => {
+    const onOffer: Product = { ...PRODUCT, price: 42999, compareAtPrice: 47999 };
+    renderWithProviders(<ProductCard product={onOffer} />, { route: '/' });
+    expect(screen.getByText(/42,999/)).toBeInTheDocument();
+    expect(screen.getByText(/47,999/)).toBeInTheDocument();
+    expect(screen.getByText('-10%')).toBeInTheDocument();
+  });
+
+  it('omits the discount markup when there is no compareAtPrice', () => {
+    renderWithProviders(<ProductCard product={PRODUCT} />, { route: '/' });
+    expect(screen.queryByText(/-\d+%/)).not.toBeInTheDocument();
+  });
+
+  it('wraps the name in a heading of the requested level', () => {
+    renderWithProviders(<ProductCard product={PRODUCT} headingLevel={2} />, { route: '/' });
+    const heading = screen.getByRole('heading', { level: 2, name: 'Velocity RS Carbon' });
+    expect(heading).toBeInTheDocument();
+    // The name is still a link inside the heading.
+    expect(within(heading).getByRole('link')).toHaveAttribute('href', '/product/velocity-rs-carbon');
+  });
+
+  it('exposes an accessible rating phrase', () => {
+    renderWithProviders(<ProductCard product={PRODUCT} />, { route: '/' });
+    expect(screen.getByText('Rated 4.7 out of 5, 128 reviews')).toBeInTheDocument();
+  });
+
+  it('shows the certification only when showCertification is set', () => {
+    const certified: Product = { ...PRODUCT, certification: 'ECE 22.06' };
+    const { rerender } = renderWithProviders(<ProductCard product={certified} />, { route: '/' });
+    expect(screen.queryByText('ECE 22.06')).not.toBeInTheDocument();
+    rerender(<ProductCard product={certified} showCertification />);
+    expect(screen.getByText('ECE 22.06')).toBeInTheDocument();
   });
 
   it('renders a very long product name without breaking', () => {

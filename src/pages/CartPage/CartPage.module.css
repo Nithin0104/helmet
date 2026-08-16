@@ -1,0 +1,197 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg-alt);
+  color: var(--text);
+  font-family: var(--font-sans);
+  position: relative;
+  overflow-x: hidden;
+  /* 14px top matches the breadcrumb breathing room on the other store pages
+     (and the DC cart's `padding: 14px 0` breadcrumb block). */
+  padding: 14px 0 132px;
+}
+
+.glow {
+  position: absolute;
+  top: 40px;
+  right: -160px;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, var(--accent-shadow), transparent 65%);
+  filter: blur(26px);
+  pointer-events: none;
+  z-index: 0;
+  animation: cartGlow 6s ease-in-out infinite;
+}
+
+.wrap {
+  /* Match the store-page container (Home/Shop/Product) and the site header so
+     the breadcrumb/title line up under the nav across every page. */
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 18px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- TITLE ---- */
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0 22px;
+}
+/* Matches the Shop page heading so page titles are consistent across the store. */
+.title {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted-2);
+}
+
+/* ---- LAYOUT ---- */
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.col {
+  min-width: 0;
+}
+.summary {
+  position: static;
+}
+
+.bagHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 0 11px;
+  border-bottom: 1px solid var(--border);
+}
+.bagEyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+}
+.confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.sure {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted-2);
+}
+.subtleBtn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-muted-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 6px;
+  min-height: 36px;
+  transition: color 0.16s ease;
+}
+.subtleBtn:hover {
+  color: var(--accent);
+}
+.dangerBtn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  min-height: 36px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  min-height: 44px;
+  transition: color 0.16s ease, gap 0.16s ease;
+}
+.backLink:hover {
+  color: var(--text);
+  gap: 12px;
+}
+
+/* ---- MOBILE BAR + UNDO ---- */
+.mobBar {
+  display: block;
+}
+.undoWrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(92px + env(safe-area-inset-bottom));
+  z-index: 55;
+  display: flex;
+  justify-content: center;
+  padding: 0 14px;
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .wrap {
+    padding: 0 28px;
+  }
+  .page {
+    padding-bottom: 64px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 372px;
+    gap: 44px;
+    align-items: start;
+  }
+  .summary {
+    position: sticky;
+    top: 92px;
+  }
+  .mobBar {
+    display: none;
+  }
+  .undoWrap {
+    bottom: 24px;
+  }
+}
+
+@keyframes cartGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow {
+    animation: none;
+  }
+}

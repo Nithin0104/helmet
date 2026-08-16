@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Lock, Search, ShoppingBag, User } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../../primitives';
 import { useIsDesktop } from '../../../hooks/useMediaQuery';
 import { useCart } from '../../../cart/CartContext';
 import { DESKTOP_NAV, MOBILE_NAV, ANNOUNCEMENTS } from '../../../data/navigation';
@@ -62,9 +64,7 @@ export function SiteHeader({
       <header className={cx(styles.minimal, className)}>
         <Logo size="sm" />
         <div className={styles.secure}>
-          <span className={styles.lock} aria-hidden>
-            🔒
-          </span>
+          <Icon icon={Lock} size="sm" className={styles.lock} />
           SECURE CHECKOUT
         </div>
       </header>
@@ -74,13 +74,13 @@ export function SiteHeader({
   const icons = (
     <>
       <button type="button" className={styles.icon} aria-label="Account">
-        ☺
+        <Icon icon={User} />
       </button>
       <button type="button" className={styles.icon} aria-label="Search" onClick={openSearch}>
-        ⌕
+        <Icon icon={Search} />
       </button>
       <Link to="/cart" className={cx(styles.icon, styles.cartLink)} aria-label="Cart">
-        ◫
+        <Icon icon={ShoppingBag} />
         <CartBadge />
       </Link>
     </>

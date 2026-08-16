@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Minus, Plus } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './QtyStepper.module.css';
 
 export type QtyStepperVariant = 'rounded' | 'pill';
@@ -49,7 +51,7 @@ export function QtyStepper({
         aria-label="Decrease quantity"
         onClick={() => set(current - 1)}
       >
-        −
+        <Icon icon={Minus} size="sm" />
       </button>
       <span className={styles.value} aria-live="polite">
         {current}
@@ -61,7 +63,7 @@ export function QtyStepper({
         aria-label="Increase quantity"
         onClick={() => set(current + 1)}
       >
-        +
+        <Icon icon={Plus} size="sm" />
       </button>
     </div>
   );

@@ -11,6 +11,7 @@ import type { CartLine } from '../../src/cart/CartContext';
 
 const ACCENT_STORAGE_KEY = 'apex_accent';
 const CART_STORAGE_KEY = 'apex_cart';
+const SAVED_STORAGE_KEY = 'apex_saved';
 const WISHLIST_STORAGE_KEY = 'apex_wishlist';
 
 export interface RenderWithProvidersOptions extends Omit<RenderOptions, 'wrapper'> {
@@ -18,6 +19,8 @@ export interface RenderWithProvidersOptions extends Omit<RenderOptions, 'wrapper
   accent?: AccentKey;
   /** Pre-seeds localStorage so CartProvider hydrates with these lines. */
   initialCart?: CartLine[];
+  /** Pre-seeds localStorage so CartProvider hydrates its saved-for-later list. */
+  initialSaved?: CartLine[];
   /** Pre-seeds localStorage so WishlistProvider hydrates with these product ids. */
   initialWishlist?: string[];
   /** Wrap in a MemoryRouter starting at this path (for components using Link/Outlet). */
@@ -26,10 +29,18 @@ export interface RenderWithProvidersOptions extends Omit<RenderOptions, 'wrapper
 
 export function renderWithProviders(
   ui: ReactElement,
-  { accent, initialCart, initialWishlist, route, ...renderOptions }: RenderWithProvidersOptions = {},
+  {
+    accent,
+    initialCart,
+    initialSaved,
+    initialWishlist,
+    route,
+    ...renderOptions
+  }: RenderWithProvidersOptions = {},
 ) {
   if (accent) window.localStorage.setItem(ACCENT_STORAGE_KEY, accent);
   if (initialCart) window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(initialCart));
+  if (initialSaved) window.localStorage.setItem(SAVED_STORAGE_KEY, JSON.stringify(initialSaved));
   if (initialWishlist)
     window.localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(initialWishlist));
 

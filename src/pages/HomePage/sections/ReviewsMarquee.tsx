@@ -1,4 +1,5 @@
-import { Marquee } from '../../../components/primitives';
+import { Star } from 'lucide-react';
+import { Icon, Marquee } from '../../../components/primitives';
 import { ReviewCard } from '../../../components/composite';
 import { formatCompact } from '../../../lib/format';
 import { HOME_REVIEWS, STORE_RATING } from '../../../data/home';
@@ -31,7 +32,7 @@ export function ReviewsMarquee() {
           Riders rate us
         </h2>
         <span className={styles.reviewRating}>
-          ★ {STORE_RATING.score.toFixed(1)}{' '}
+          <Icon icon={Star} size="sm" className={styles.reviewStar} /> {STORE_RATING.score.toFixed(1)}{' '}
           <span className={styles.reviewRatingCount}>/ {formatCompact(STORE_RATING.count)}</span>
         </span>
       </div>

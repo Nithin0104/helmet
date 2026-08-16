@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Search, X } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './SearchBar.module.css';
 
 export interface SearchBarProps {
@@ -50,10 +52,7 @@ export function SearchBar({
         onSubmit?.(current);
       }}
     >
-      <svg className={styles.searchIcon} viewBox="0 0 20 20" aria-hidden>
-        <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" strokeWidth="2" />
-        <path d="M14 14L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
+      <Icon icon={Search} size="sm" className={styles.searchIcon} />
       <input
         className={styles.input}
         type="search"
@@ -66,7 +65,7 @@ export function SearchBar({
       {loading && <span className={styles.spinner} aria-hidden />}
       {!loading && current && (
         <button type="button" className={styles.clear} aria-label="Clear search" onClick={clear}>
-          ×
+          <Icon icon={X} size="sm" />
         </button>
       )}
     </form>

@@ -10,8 +10,13 @@ import type { Product, ColorOption, SizeOption } from './types';
  * brands (the store name is separate from the brands it stocks).
  */
 
-/** Standard adult helmet size ladder; pass the ids that are out of stock. */
-function sizeSet(soldOut: string[] = []): SizeOption[] {
+/**
+ * Standard adult helmet size ladder. Pass the ids that are out of stock, and
+ * optionally a per-size units-in-stock map for low-stock urgency ("Only N left").
+ * When a size appears in `stock`, its `available` is derived from the count
+ * (`> 0`); otherwise it falls back to the `soldOut` list.
+ */
+function sizeSet(soldOut: string[] = [], stock?: Record<string, number>): SizeOption[] {
   return (
     [
       ['xs', 'XS (53-54cm)'],
@@ -21,7 +26,13 @@ function sizeSet(soldOut: string[] = []): SizeOption[] {
       ['xl', 'XL (61-62cm)'],
       ['xxl', 'XXL (63-64cm)'],
     ] as const
-  ).map(([id, label]) => ({ id, label, available: !soldOut.includes(id) }));
+  ).map(([id, label]) => {
+    if (stock && id in stock) {
+      const count = stock[id];
+      return { id, label, available: count > 0, stock: count };
+    }
+    return { id, label, available: !soldOut.includes(id) };
+  });
 }
 
 /** Shared colourway palette — products pick a subset; ids stay unique per product. */
@@ -62,7 +73,7 @@ const FAQ_RETURNS = {
     'for a full refund. Worn or damaged helmets cannot be returned for hygiene and safety reasons.',
 };
 
-export const PRODUCTS: Product[] = [
+const CORE_HELMETS: Product[] = [
   {
     id: 'velocity-rs-carbon',
     featured: 'best',
@@ -70,6 +81,7 @@ export const PRODUCTS: Product[] = [
     brand: 'MT Helmets',
     tagline: 'Race-bred carbon shell for the track and the highway',
     category: 'Full-face',
+    certification: 'ECE 22.06',
     price: 42999,
     compareAtPrice: 47999,
     rating: 4.7,
@@ -87,8 +99,13 @@ export const PRODUCTS: Product[] = [
       'Anti-fog, anti-scratch visor with tool-less removal',
       'Removable, washable, moisture-wicking liner',
     ],
+    highlightStats: [
+      { value: '1,350g', label: 'Carbon-fibre shell' },
+      { value: 'ECE 22.06', label: 'ISI + ECE certified' },
+      { value: '3 shells', label: 'Precise-fit sizing' },
+    ],
     colors: [C.matteBlack, C.carbon, C.racingRed, C.pearlWhite, C.gunmetal],
-    sizes: sizeSet(['xl', 'xxl']),
+    sizes: sizeSet(['xl', 'xxl'], { xs: 3, s: 8, m: 14, l: 11, xl: 0, xxl: 0 }),
     views: FULL_FACE_VIEWS,
     specs: [
       { label: 'Shell material', value: 'Carbon fibre composite' },
@@ -154,6 +171,7 @@ export const PRODUCTS: Product[] = [
     brand: 'SMK',
     tagline: 'MotoGP-inspired shell for serious track days',
     category: 'Full-face',
+    certification: 'ECE 22.06',
     price: 34999,
     rating: 4.6,
     reviewCount: 84,
@@ -169,8 +187,13 @@ export const PRODUCTS: Product[] = [
       'Pinlock-ready anti-fog visor with quick-release',
       'Emergency-release cheek pads for safe removal',
     ],
+    highlightStats: [
+      { value: '1,480g', label: 'Composite fibreglass shell' },
+      { value: 'Wind-tuned', label: 'Aero rear spoiler' },
+      { value: 'ECE 22.06', label: 'Track-day approved' },
+    ],
     colors: [C.glossBlack, C.racingRed, C.titanium, C.hiViz],
-    sizes: sizeSet(['xxl']),
+    sizes: sizeSet(['xxl'], { xs: 5, s: 9, m: 12, l: 7, xl: 2, xxl: 0 }),
     views: FULL_FACE_VIEWS,
     specs: [
       { label: 'Shell material', value: 'Multi-composite fibreglass' },
@@ -225,6 +248,7 @@ export const PRODUCTS: Product[] = [
     brand: 'Axor',
     tagline: 'Everyday sport riding, race-day sharp',
     category: 'Full-face',
+    certification: 'DOT',
     price: 18999,
     rating: 4.4,
     reviewCount: 156,
@@ -239,8 +263,13 @@ export const PRODUCTS: Product[] = [
       'Wide eyeport for better peripheral vision',
       'Micrometric quick-release strap',
     ],
+    highlightStats: [
+      { value: '1,520g', label: 'Polycarbonate shell' },
+      { value: 'Internal', label: 'Drop-down sun visor' },
+      { value: 'ISI + DOT', label: 'Certified' },
+    ],
     colors: [C.matteBlack, C.pearlWhite, C.midnight, C.orange],
-    sizes: sizeSet(),
+    sizes: sizeSet([], { xs: 6, s: 12, m: 20, l: 15, xl: 9, xxl: 4 }),
     views: FULL_FACE_VIEWS,
     specs: [
       { label: 'Shell material', value: 'Polycarbonate' },
@@ -304,6 +333,7 @@ export const PRODUCTS: Product[] = [
     brand: 'Vega',
     tagline: 'Flip up the chin bar, stay in the saddle',
     category: 'Modular',
+    certification: 'ISI',
     price: 15499,
     compareAtPrice: 17999,
     rating: 4.3,
@@ -320,8 +350,13 @@ export const PRODUCTS: Product[] = [
       'Bluetooth speaker pockets pre-cut',
       'Micrometric quick-release strap',
     ],
+    highlightStats: [
+      { value: 'One-touch', label: 'Flip-up chin bar' },
+      { value: 'P/J', label: 'Dual homologation' },
+      { value: 'BT-ready', label: 'Pre-cut speaker pockets' },
+    ],
     colors: [C.matteBlack, C.gunmetal, C.pearlWhite, C.midnight],
-    sizes: sizeSet(['xs']),
+    sizes: sizeSet(['xs'], { xs: 0, s: 10, m: 18, l: 13, xl: 6, xxl: 3 }),
     views: MODULAR_VIEWS,
     specs: [
       { label: 'Shell material', value: 'ABS thermoplastic' },
@@ -392,6 +427,7 @@ export const PRODUCTS: Product[] = [
     brand: 'Steelbird',
     tagline: 'Built for gravel, tarmac, and everything between',
     category: 'Adventure',
+    certification: 'ECE 22.06',
     price: 22999,
     rating: 4.5,
     reviewCount: 97,
@@ -406,8 +442,13 @@ export const PRODUCTS: Product[] = [
       'Goggle-ready eyeport with drop-down sun visor',
       'Roost-guard chin vent for off-road',
     ],
+    highlightStats: [
+      { value: 'Removable', label: 'Aerodynamic peak' },
+      { value: 'Goggle-ready', label: 'Dual-sport eyeport' },
+      { value: 'ECE 22.06', label: 'ISI + ECE certified' },
+    ],
     colors: [C.matteBlack, C.sand, C.ranger, C.hiViz],
-    sizes: sizeSet(['xxl']),
+    sizes: sizeSet(['xxl'], { xs: 4, s: 7, m: 11, l: 9, xl: 3, xxl: 0 }),
     views: ADVENTURE_VIEWS,
     specs: [
       { label: 'Shell material', value: 'Fibreglass composite' },
@@ -468,6 +509,7 @@ export const PRODUCTS: Product[] = [
     brand: 'Vega',
     tagline: 'All-day comfort for the long haul',
     category: 'Touring',
+    certification: 'ISI',
     price: 12999,
     rating: 4.2,
     reviewCount: 143,
@@ -482,8 +524,13 @@ export const PRODUCTS: Product[] = [
       'Internal sun visor for all-day glare',
       'Pinlock-ready anti-fog main visor',
     ],
+    highlightStats: [
+      { value: '1,550g', label: 'Low-noise shell' },
+      { value: 'All-day', label: 'Plush touring liner' },
+      { value: 'Pinlock', label: 'Anti-fog ready' },
+    ],
     colors: [C.matteBlack, C.pearlWhite, C.gunmetal, C.midnight],
-    sizes: sizeSet(),
+    sizes: sizeSet([], { xs: 8, s: 14, m: 22, l: 16, xl: 10, xxl: 5 }),
     views: FULL_FACE_VIEWS,
     specs: [
       { label: 'Shell material', value: 'Thermoplastic alloy' },
@@ -547,6 +594,7 @@ export const PRODUCTS: Product[] = [
     brand: 'Studds',
     tagline: 'Minimalist shell, maximalist protection',
     category: 'Full-face',
+    certification: 'SHARP 5',
     price: 27999,
     rating: 4.5,
     reviewCount: 62,
@@ -562,8 +610,13 @@ export const PRODUCTS: Product[] = [
       'Pinlock-ready anti-fog visor',
       'Emergency quick-release cheek pads',
     ],
+    highlightStats: [
+      { value: '1,470g', label: 'Composite fibreglass shell' },
+      { value: 'SHARP 5★', label: 'Independent safety rating' },
+      { value: 'Stealth', label: 'All-matte finish' },
+    ],
     colors: [C.matteBlack, C.gunmetal, C.glossBlack, C.carbon],
-    sizes: sizeSet(['xs', 'xxl']),
+    sizes: sizeSet(['xs', 'xxl'], { xs: 0, s: 6, m: 9, l: 5, xl: 2, xxl: 0 }),
     views: FULL_FACE_VIEWS,
     specs: [
       { label: 'Shell material', value: 'Multi-composite fibreglass' },
@@ -618,6 +671,7 @@ export const PRODUCTS: Product[] = [
     brand: 'Royal Enfield',
     tagline: 'The carbon adventure shell for cross-country riders',
     category: 'Adventure',
+    certification: 'ECE 22.06',
     price: 39999,
     compareAtPrice: 43999,
     rating: 4.6,
@@ -634,8 +688,13 @@ export const PRODUCTS: Product[] = [
       'Expanded viewport for standing riding',
       'Moisture-wicking removable expedition liner',
     ],
+    highlightStats: [
+      { value: '1,440g', label: 'Carbon-fibre shell' },
+      { value: 'Removable', label: 'Peak + visor' },
+      { value: 'ECE 22.06', label: 'ISI + ECE certified' },
+    ],
     colors: [C.matteBlack, C.sand, C.ranger, C.titanium],
-    sizes: sizeSet(['xxl']),
+    sizes: sizeSet(['xxl'], { xs: 2, s: 5, m: 8, l: 6, xl: 3, xxl: 0 }),
     views: ADVENTURE_VIEWS,
     specs: [
       { label: 'Shell material', value: 'Carbon fibre composite' },
@@ -690,6 +749,234 @@ export const PRODUCTS: Product[] = [
     ],
   },
 ];
+
+const OPEN_FACE_VIEWS = ['front', 'three-quarter', 'side', 'rear'];
+
+const VIEWS_BY_CATEGORY: Record<string, string[]> = {
+  'Full-face': FULL_FACE_VIEWS,
+  Modular: MODULAR_VIEWS,
+  Adventure: ADVENTURE_VIEWS,
+  'Open-face': OPEN_FACE_VIEWS,
+  Touring: FULL_FACE_VIEWS,
+};
+
+const CATEGORY_HIGHLIGHT: Record<string, string> = {
+  'Full-face': 'Full-face shell with a wide anti-fog visor',
+  Modular: 'One-touch flip-up chin bar',
+  Adventure: 'Removable peak with a goggle-ready eyeport',
+  'Open-face': 'Open-face comfort with a drop-down sun visor',
+  Touring: 'Long-haul comfort liner tuned for low wind noise',
+};
+
+/** Rotating review blurbs — keeps the catalog realistic without bespoke copy per SKU. */
+const REVIEW_POOL: Array<[string, string, string]> = [
+  ['Aarav Sharma', 'Perfect fit and finish', 'True to size and the build quality feels well above the price.'],
+  ['Isha Reddy', 'Great value for money', 'Comfortable on my daily commute and the visor seals well in the rain.'],
+  ['Rohit Nair', 'Solid, dependable lid', 'Light on the head for long rides and the vents actually move air.'],
+  ['Neha Kulkarni', 'Really happy with it', 'Looks premium, feels safe, and the strap is quick to use at every stop.'],
+  ['Yusuf Khan', 'Would recommend', 'A few hundred kilometres in already and no complaints so far.'],
+  ['Ananya Das', 'Comfortable and quiet', 'Wind noise is well controlled and the liner is soft against the cheeks.'],
+];
+
+interface HelmetSeed {
+  id: string;
+  name: string;
+  brand: string;
+  tagline: string;
+  category: string;
+  price: number;
+  compareAtPrice?: number;
+  rating: number;
+  reviewCount: number;
+  badge?: string;
+  certification: string;
+  shell: string;
+  colors: ColorOption[];
+  /** Size ids that are out of stock; pass every id for a fully sold-out product. */
+  soldOut?: string[];
+  featured?: 'best' | 'new';
+}
+
+/**
+ * Builds a fully-detailed helmet from the fields that actually vary per SKU,
+ * templating the PDP-only detail (description/specs/faqs/reviews) so the catalog
+ * can span enough products for the PLP filters/pagination to be meaningful without
+ * hand-authoring identical boilerplate 16 times.
+ */
+function helmet(seed: HelmetSeed): Product {
+  const views = VIEWS_BY_CATEGORY[seed.category] ?? FULL_FACE_VIEWS;
+  const a1 = REVIEW_POOL[seed.reviewCount % REVIEW_POOL.length];
+  const a2 = REVIEW_POOL[(seed.reviewCount + 3) % REVIEW_POOL.length];
+  const r1 = Math.max(1, Math.min(5, Math.round(seed.rating)));
+  const r2 = Math.max(1, Math.min(5, Math.round(seed.rating - 0.5)));
+  return {
+    id: seed.id,
+    name: seed.name,
+    brand: seed.brand,
+    tagline: seed.tagline,
+    category: seed.category,
+    certification: seed.certification,
+    price: seed.price,
+    ...(seed.compareAtPrice ? { compareAtPrice: seed.compareAtPrice } : {}),
+    rating: seed.rating,
+    reviewCount: seed.reviewCount,
+    ...(seed.badge ? { badge: seed.badge } : {}),
+    ...(seed.featured ? { featured: seed.featured } : {}),
+    description:
+      `The ${seed.name} is a ${seed.category.toLowerCase()} helmet from ${seed.brand} — ` +
+      `${seed.tagline.toLowerCase()}. Built on a ${seed.shell.toLowerCase()} shell and ${seed.certification} ` +
+      `certified, it pairs everyday usability with the protection Indian roads demand.`,
+    highlights: [
+      `${seed.shell} shell`,
+      `${seed.certification} certified`,
+      CATEGORY_HIGHLIGHT[seed.category] ?? 'Aerodynamic, road-tuned shell',
+      'Removable, washable, moisture-wicking liner',
+      'Micrometric quick-release strap',
+    ],
+    colors: seed.colors,
+    sizes: sizeSet(seed.soldOut),
+    views,
+    specs: [
+      { label: 'Shell material', value: seed.shell },
+      { label: 'Certification', value: seed.certification },
+      { label: 'Weight', value: '1,500g ± 60g (size M)' },
+      { label: 'Visor', value: 'Anti-scratch, UV-protective' },
+      { label: 'Ventilation', value: 'Multi-channel intake + exhaust vents' },
+      { label: 'Liner', value: 'Removable, washable' },
+      { label: 'Retention system', value: 'Micrometric ratchet' },
+      { label: 'Warranty', value: '2 years manufacturer warranty' },
+    ],
+    faqs: [FAQ_SIZING, FAQ_RETURNS],
+    reviews: [
+      { id: 'r1', author: a1[0], rating: r1, date: '2026-06-01', title: a1[1], body: a1[2], verified: true },
+      { id: 'r2', author: a2[0], rating: r2, date: '2026-05-01', title: a2[1], body: a2[2], verified: false },
+    ],
+  };
+}
+
+/**
+ * Extended catalog so the PLP has real breadth — 7 brands, 5 helmet types,
+ * four certifications, and a price spread wide enough for the range filter and
+ * pagination to do visible work. Includes one fully sold-out SKU for the
+ * out-of-stock card + "in stock only" filter.
+ */
+const MORE_HELMETS: Product[] = [
+  helmet({
+    id: 'thunder-full-carbon', name: 'Thunder Full Carbon', brand: 'MT Helmets',
+    tagline: 'Carbon-shell flagship for the fast lane', category: 'Full-face',
+    price: 45999, compareAtPrice: 49999, rating: 4.8, reviewCount: 76, badge: 'Premium',
+    certification: 'ECE 22.06', shell: 'Carbon fibre composite', featured: 'best',
+    colors: [C.matteBlack, C.carbon, C.racingRed], soldOut: ['xxl'],
+  }),
+  helmet({
+    id: 'stellar-mx', name: 'Stellar MX', brand: 'SMK',
+    tagline: 'Dirt-ready dual-sport adventure lid', category: 'Adventure',
+    price: 24999, rating: 4.3, reviewCount: 58,
+    certification: 'DOT', shell: 'Fibreglass composite',
+    colors: [C.matteBlack, C.sand, C.hiViz],
+  }),
+  helmet({
+    id: 'rapide-sport', name: 'Rapide Sport', brand: 'Axor',
+    tagline: 'Sharp everyday sport full-face', category: 'Full-face',
+    price: 16999, rating: 4.4, reviewCount: 132,
+    certification: 'ISI', shell: 'Polycarbonate',
+    colors: [C.glossBlack, C.racingRed, C.titanium],
+  }),
+  helmet({
+    id: 'metro-flip', name: 'Metro Flip', brand: 'Vega',
+    tagline: 'City flip-up for stop-go commutes', category: 'Modular',
+    price: 13999, rating: 4.1, reviewCount: 89,
+    certification: 'ISI', shell: 'ABS thermoplastic',
+    colors: [C.matteBlack, C.pearlWhite, C.gunmetal], soldOut: ['xs'],
+  }),
+  helmet({
+    id: 'crusader-open', name: 'Crusader Open', brand: 'Steelbird',
+    tagline: 'Classic open-face for short city hops', category: 'Open-face',
+    price: 12999, rating: 4.0, reviewCount: 74,
+    certification: 'DOT', shell: 'ABS thermoplastic',
+    colors: [C.glossBlack, C.titanium, C.racingRed],
+  }),
+  helmet({
+    id: 'ranger-adv-pro', name: 'Ranger ADV Pro', brand: 'Studds',
+    tagline: 'Budget-friendly go-anywhere adventure', category: 'Adventure',
+    price: 21999, rating: 4.4, reviewCount: 63,
+    certification: 'ISI', shell: 'Fibreglass composite',
+    colors: [C.ranger, C.sand, C.matteBlack],
+  }),
+  helmet({
+    id: 'continental-gt', name: 'Continental GT', brand: 'Royal Enfield',
+    tagline: 'Retro-touring comfort for the long road', category: 'Touring',
+    price: 19999, rating: 4.5, reviewCount: 118,
+    certification: 'ECE 22.06', shell: 'Thermoplastic alloy', featured: 'best',
+    colors: [C.midnight, C.matteBlack, C.sand],
+  }),
+  helmet({
+    id: 'apex-gp-carbon', name: 'Apex GP Carbon', brand: 'MT Helmets',
+    tagline: 'Homologated race shell, sold out fast', category: 'Full-face',
+    price: 47999, rating: 4.9, reviewCount: 44, badge: 'Track Ready',
+    certification: 'SHARP 5', shell: 'Carbon fibre composite',
+    colors: [C.carbon, C.glossBlack, C.racingRed],
+    soldOut: ['xs', 's', 'm', 'l', 'xl', 'xxl'],
+  }),
+  helmet({
+    id: 'voyager-tour', name: 'Voyager Tour', brand: 'SMK',
+    tagline: 'Quiet, comfort-first touring full-face', category: 'Touring',
+    price: 17999, rating: 4.3, reviewCount: 95,
+    certification: 'ISI', shell: 'Thermoplastic alloy',
+    colors: [C.gunmetal, C.pearlWhite, C.midnight],
+  }),
+  helmet({
+    id: 'blaze-modular', name: 'Blaze Modular', brand: 'Axor',
+    tagline: 'Flip-up versatility with a bold finish', category: 'Modular',
+    price: 18499, rating: 4.2, reviewCount: 71,
+    certification: 'ISI', shell: 'ABS thermoplastic',
+    colors: [C.matteBlack, C.titanium, C.orange],
+  }),
+  helmet({
+    id: 'street-classic', name: 'Street Classic', brand: 'Vega',
+    tagline: 'Timeless open-face for the daily ride', category: 'Open-face',
+    price: 13499, rating: 3.9, reviewCount: 52,
+    certification: 'DOT', shell: 'ABS thermoplastic',
+    colors: [C.glossBlack, C.pearlWhite, C.racingRed],
+  }),
+  helmet({
+    id: 'sentinel-ff', name: 'Sentinel FF', brand: 'Steelbird',
+    tagline: 'Dependable full-face that just works', category: 'Full-face',
+    price: 14999, rating: 4.2, reviewCount: 108,
+    certification: 'ISI', shell: 'Polycarbonate',
+    colors: [C.matteBlack, C.midnight, C.hiViz],
+  }),
+  helmet({
+    id: 'nomad-adv-carbon', name: 'Nomad ADV Carbon', brand: 'Studds',
+    tagline: 'Featherweight carbon for cross-country', category: 'Adventure',
+    price: 38999, compareAtPrice: 42999, rating: 4.6, reviewCount: 39, badge: 'New',
+    certification: 'ECE 22.06', shell: 'Carbon fibre composite', featured: 'new',
+    colors: [C.carbon, C.ranger, C.sand],
+  }),
+  helmet({
+    id: 'himalayan-tour', name: 'Himalayan Tour', brand: 'Royal Enfield',
+    tagline: 'High-altitude touring, built for the hills', category: 'Touring',
+    price: 23999, rating: 4.5, reviewCount: 87,
+    certification: 'ECE 22.06', shell: 'Fibreglass composite', featured: 'new',
+    colors: [C.ranger, C.matteBlack, C.sand], soldOut: ['xxl'],
+  }),
+  helmet({
+    id: 'vortex-rs', name: 'Vortex RS', brand: 'SMK',
+    tagline: 'Stealth performance full-face', category: 'Full-face',
+    price: 29999, rating: 4.5, reviewCount: 66, badge: 'New',
+    certification: 'SHARP 5', shell: 'Multi-composite fibreglass', featured: 'new',
+    colors: [C.matteBlack, C.gunmetal, C.racingRed],
+  }),
+  helmet({
+    id: 'urban-lite-open', name: 'Urban Lite Open', brand: 'MT Helmets',
+    tagline: 'Lightweight open-face for the city', category: 'Open-face',
+    price: 13299, rating: 3.8, reviewCount: 61,
+    certification: 'ISI', shell: 'ABS thermoplastic',
+    colors: [C.pearlWhite, C.matteBlack, C.titanium],
+  }),
+];
+
+export const PRODUCTS: Product[] = [...CORE_HELMETS, ...MORE_HELMETS];
 
 export function getProduct(id: string): Product | undefined {
   return PRODUCTS.find((product) => product.id === id);

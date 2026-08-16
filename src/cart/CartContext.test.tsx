@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
+import { StrictMode } from 'react';
 import type { ReactNode } from 'react';
 import { CartProvider, useCart } from './CartContext';
 import type { CartLineInput } from './CartContext';
@@ -8,6 +9,16 @@ const STORAGE_KEY = 'apex_cart';
 
 function wrapper({ children }: { children: ReactNode }) {
   return <CartProvider>{children}</CartProvider>;
+}
+
+// StrictMode double-invokes state updaters to surface impure ones. The bag ⇄ saved
+// moves must survive that without doubling quantities.
+function strictWrapper({ children }: { children: ReactNode }) {
+  return (
+    <StrictMode>
+      <CartProvider>{children}</CartProvider>
+    </StrictMode>
+  );
 }
 
 const baseLine: CartLineInput = {
@@ -132,5 +143,92 @@ describe('CartContext', () => {
 
     expect(result.current.lines).toEqual([]);
     spy.mockRestore();
+  });
+});
+
+describe('CartContext — saved for later', () => {
+  it('save moves a bag line into saved with quantity reset to 1', () => {
+    const { result } = renderHook(() => useCart(), { wrapper });
+
+    act(() => result.current.add(baseLine, 3));
+    const id = result.current.lines[0].id;
+    act(() => result.current.save(id));
+
+    expect(result.current.lines).toEqual([]);
+    expect(result.current.saved).toHaveLength(1);
+    expect(result.current.saved[0]).toMatchObject({ id, qty: 1 });
+  });
+
+  it('moveToBag restores a saved line, merging into an existing bag line', () => {
+    const { result } = renderHook(() => useCart(), { wrapper });
+
+    act(() => result.current.add({ ...baseLine, color: 'matte-black', size: 'm' }, 2));
+    const id = result.current.lines[0].id;
+    act(() => result.current.save(id)); // bag → saved (qty 1)
+    act(() => result.current.add({ ...baseLine, color: 'matte-black', size: 'm' }, 4)); // re-add to bag
+    act(() => result.current.moveToBag(id)); // saved (qty 1) → merges into bag line
+
+    expect(result.current.saved).toEqual([]);
+    expect(result.current.lines).toHaveLength(1);
+    expect(result.current.lines[0].qty).toBe(5);
+  });
+
+  it('removeSaved drops a saved line without touching the bag', () => {
+    const { result } = renderHook(() => useCart(), { wrapper });
+
+    act(() => result.current.add(baseLine));
+    const id = result.current.lines[0].id;
+    act(() => result.current.save(id));
+    act(() => result.current.removeSaved(id));
+
+    expect(result.current.saved).toEqual([]);
+    expect(result.current.lines).toEqual([]);
+  });
+
+  it('does not duplicate a saved line when the same id is saved twice', () => {
+    const { result } = renderHook(() => useCart(), { wrapper });
+
+    act(() => result.current.add(baseLine));
+    const id = result.current.lines[0].id;
+    act(() => result.current.save(id));
+    act(() => result.current.add(baseLine)); // back in the bag
+    act(() => result.current.save(id)); // save again
+
+    expect(result.current.saved).toHaveLength(1);
+  });
+
+  it('persists saved lines under apex_saved and hydrates a new provider', () => {
+    const first = renderHook(() => useCart(), { wrapper });
+    act(() => first.result.current.add(baseLine));
+    const id = first.result.current.lines[0].id;
+    act(() => first.result.current.save(id));
+
+    expect(JSON.parse(window.localStorage.getItem('apex_saved') ?? '[]')).toHaveLength(1);
+
+    const second = renderHook(() => useCart(), { wrapper });
+    expect(second.result.current.saved).toHaveLength(1);
+  });
+
+  it('falls back to an empty saved list when apex_saved is corrupt', () => {
+    window.localStorage.setItem('apex_saved', '{bad json');
+
+    const { result } = renderHook(() => useCart(), { wrapper });
+
+    expect(result.current.saved).toEqual([]);
+  });
+
+  it('save then moveToBag keeps quantity at 1 under StrictMode (no double-merge)', () => {
+    const { result } = renderHook(() => useCart(), { wrapper: strictWrapper });
+
+    act(() => result.current.add(baseLine, 2));
+    const id = result.current.lines[0].id;
+
+    act(() => result.current.save(id));
+    expect(result.current.saved).toHaveLength(1);
+    expect(result.current.saved[0].qty).toBe(1);
+
+    act(() => result.current.moveToBag(id));
+    expect(result.current.lines).toHaveLength(1);
+    expect(result.current.lines[0].qty).toBe(1);
   });
 });

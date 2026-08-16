@@ -98,8 +98,17 @@
 }
 
 .card:hover .heart,
-.heart[aria-pressed='true'] {
+.heart[aria-pressed='true'],
+.heart:focus-visible {
   opacity: 1;
+}
+
+/* Touch devices never fire :hover, so reveal the save heart permanently there —
+   otherwise mobile shoppers can't wishlist from the listing at all. */
+@media (hover: none) {
+  .heart {
+    opacity: 1;
+  }
 }
 
 .soldOut {
@@ -174,6 +183,33 @@
   color: var(--accent);
 }
 
+.name:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Heading wrapper around the name link: neutralise default heading metrics so the
+   card layout is unchanged. */
+.nameHeading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+/* Screen-reader-only text (accessible rating phrasing). */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .rating {
   display: flex;
   align-items: center;
@@ -181,8 +217,8 @@
 }
 
 .stars {
-  font-size: 0.6875rem;
   color: var(--gold);
+  fill: currentColor;
 }
 
 .ratingValue {
@@ -197,12 +233,34 @@
   color: var(--text-dim);
 }
 
+/* Safety certification badge shown on PLP cards (opt-in via showCertification). */
+.cert {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.5px;
+  color: var(--text-muted-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   margin-top: auto;
   padding-top: 6px;
+}
+
+.priceGroup {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
 }
 
 .price {
@@ -210,6 +268,22 @@
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--text);
+}
+
+/* Struck original price + savings badge when a product is on offer. */
+.compareAt {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+.discount {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--danger);
 }
 
 .add {
@@ -246,4 +320,10 @@
 .add:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.add:focus-visible,
+.quickAdd:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
 }

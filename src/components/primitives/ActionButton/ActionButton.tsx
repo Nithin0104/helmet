@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Check } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import { Spinner } from '../Spinner/Spinner';
 import styles from './ActionButton.module.css';
 
@@ -77,16 +79,7 @@ export function ActionButton({
     >
       {current === 'loading' && <Spinner size={16} color="#fff" thickness={2} className={styles.spinner} />}
       {current === 'done' && (
-        <svg className={styles.check} viewBox="0 0 20 20" aria-hidden>
-          <path
-            d="M3 10.5l4.5 4.5L17 5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <Icon icon={Check} size="sm" strokeWidth={2.4} className={styles.check} />
       )}
       <span className={styles.label}>{text}</span>
     </button>

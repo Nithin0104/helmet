@@ -46,6 +46,14 @@ describe('PRODUCTS contract', () => {
     },
   );
 
+  it.each(PRODUCTS.filter((p) => p.certification !== undefined))(
+    '$id certification, when present, is a non-empty string',
+    (product) => {
+      expect(typeof product.certification).toBe('string');
+      expect((product.certification as string).length).toBeGreaterThan(0);
+    },
+  );
+
   it.each(PRODUCTS.filter((p) => p.colors))('$id colors, when present, are well-formed', (product) => {
     const colors = product.colors!;
     expect(colors.length).toBeGreaterThan(0);
@@ -64,9 +72,28 @@ describe('PRODUCTS contract', () => {
       expect(size.id.length).toBeGreaterThan(0);
       expect(size.label.length).toBeGreaterThan(0);
       expect(typeof size.available).toBe('boolean');
+      if (size.stock !== undefined) {
+        // When a count is present it must be a non-negative integer and agree
+        // with `available` (the PDP derives "Only N left"/"Sold out" from it).
+        expect(Number.isInteger(size.stock)).toBe(true);
+        expect(size.stock).toBeGreaterThanOrEqual(0);
+        expect(size.available).toBe(size.stock > 0);
+      }
     }
     expect(new Set(sizes.map((s) => s.id)).size).toBe(sizes.length);
   });
+
+  it.each(PRODUCTS.filter((p) => p.highlightStats))(
+    '$id highlightStats, when present, are well-formed value/label pairs',
+    (product) => {
+      const stats = product.highlightStats!;
+      expect(stats.length).toBeGreaterThan(0);
+      for (const stat of stats) {
+        expect(stat.value.length).toBeGreaterThan(0);
+        expect(stat.label.length).toBeGreaterThan(0);
+      }
+    },
+  );
 
   it.each(PRODUCTS.filter((p) => p.specs))('$id specs, when present, are well-formed', (product) => {
     for (const spec of product.specs!) {
@@ -124,14 +151,17 @@ describe('PRODUCTS contract', () => {
     expect(categories.size).toBeGreaterThan(1);
   });
 
-  it('every size ladder has at least one available and keeps some sold-out coverage', () => {
-    // Sold-out sizes drive the PDP disabled-state UI; keep at least one product
-    // with an unavailable size in the catalog.
-    for (const p of PRODUCTS.filter((x) => x.sizes)) {
-      expect(p.sizes!.some((s) => s.available)).toBe(true);
-    }
-    const withSoldOut = PRODUCTS.filter((p) => p.sizes?.some((s) => !s.available));
-    expect(withSoldOut.length).toBeGreaterThan(0);
+  it('keeps stock-state coverage across the catalog', () => {
+    // "In stock" is derived from per-size availability. The catalog needs all three
+    // stock states: buyable products, products with individual sold-out sizes (PDP
+    // disabled-size UI), and at least one fully out-of-stock product (PLP sold-out
+    // card + the "in stock only" filter).
+    const buyable = PRODUCTS.filter((p) => p.sizes?.some((s) => s.available));
+    expect(buyable.length).toBeGreaterThan(0);
+    const withSoldOutSize = PRODUCTS.filter((p) => p.sizes?.some((s) => !s.available));
+    expect(withSoldOutSize.length).toBeGreaterThan(0);
+    const fullyOut = PRODUCTS.filter((p) => p.sizes && p.sizes.every((s) => !s.available));
+    expect(fullyOut.length).toBeGreaterThan(0);
   });
 });
 

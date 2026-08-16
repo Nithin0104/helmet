@@ -244,10 +244,18 @@
 }
 
 .statValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-family: var(--font-mono);
   font-size: clamp(1.25rem, 2.4vw, 1.75rem);
   font-weight: 700;
   color: var(--text);
+}
+
+.statStar {
+  color: var(--gold);
+  fill: currentColor;
 }
 
 .statLabel {
@@ -275,14 +283,12 @@
 }
 
 .why {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
 .whyCard {
-  flex: 1 1 200px;
-  max-width: 300px;
   border: 1px solid var(--border);
   background: var(--surface);
   padding: 16px 14px;
@@ -549,9 +555,16 @@
 }
 
 .reviewRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--gold);
+}
+
+.reviewStar {
+  fill: currentColor;
 }
 
 .reviewRatingCount {
@@ -607,6 +620,9 @@
 
 @media (min-width: 1000px) {
   .categories {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .why {
     grid-template-columns: repeat(4, 1fr);
   }
 }

@@ -5,6 +5,8 @@
  * Localized to India (₹, Bengaluru), not the DC source's £/London.
  */
 
+import type { IconKey } from '../lib/icons';
+
 export interface CtaLink {
   label: string;
   href: string;
@@ -35,12 +37,14 @@ export interface HomeStat {
   suffix?: string;
   decimals?: number;
   label: string;
+  /** Optional trailing icon (e.g. a rating star), resolved via `iconMap`. */
+  icon?: IconKey;
 }
 
 export const STATS: HomeStat[] = [
   { value: 200, suffix: '+', label: 'Helmets' },
   { value: 10, suffix: '+', label: 'Brands' },
-  { value: 4.9, decimals: 1, suffix: '★', label: 'Rated' },
+  { value: 4.9, decimals: 1, icon: 'star', label: 'Rated' },
 ];
 
 export interface HomeCategory {
@@ -51,23 +55,24 @@ export interface HomeCategory {
 }
 
 export const CATEGORIES: HomeCategory[] = [
-  { kicker: 'CAT 01', title: 'Helmets', caption: 'Full-face · modular · open', href: '/shop' },
-  { kicker: 'CAT 02', title: 'Spares', caption: 'Visors · liners · straps', href: '/shop' },
-  { kicker: 'CAT 03', title: 'Accessories', caption: 'Gloves · intercoms · jackets', href: '/shop' },
-  { kicker: 'CAT 04', title: 'Care', caption: 'Cleaners · anti-fog · bags', href: '/shop' },
+  { kicker: 'CAT 01', title: 'Helmets', caption: 'Full-face · modular · open', href: '/helmets' },
+  { kicker: 'CAT 02', title: 'Spares', caption: 'Visors · liners · straps', href: '/spares-care' },
+  { kicker: 'CAT 03', title: 'Accessories', caption: 'Gloves · intercoms · jackets', href: '/accessories' },
+  { kicker: 'CAT 04', title: 'Care', caption: 'Cleaners · anti-fog · bags', href: '/spares-care' },
 ];
 
 export interface WhyUsItem {
-  icon: string;
+  /** Icon key resolved via `iconMap`. */
+  icon: IconKey;
   title: string;
   body: string;
 }
 
 export const WHY_US: WhyUsItem[] = [
-  { icon: '✔', title: '100% genuine', body: 'Every helmet sourced direct from the brand. No fakes, ever.' },
-  { icon: '◈', title: '10+ brands', body: 'The widest range under one roof, online and in store.' },
-  { icon: '⌂', title: 'Physical store', body: 'Come browse, try helmets on and talk to the team in person.' },
-  { icon: '☎', title: 'Great support', body: 'Real riders on hand to help before and after you buy.' },
+  { icon: 'shield-check', title: '100% genuine', body: 'Every helmet sourced direct from the brand. No fakes, ever.' },
+  { icon: 'boxes', title: '10+ brands', body: 'The widest range under one roof, online and in store.' },
+  { icon: 'store', title: 'Physical store', body: 'Come browse, try helmets on and talk to the team in person.' },
+  { icon: 'headset', title: 'Great support', body: 'Real riders on hand to help before and after you buy.' },
 ];
 
 export interface CompareContent {
@@ -81,7 +86,7 @@ export const COMPARE: CompareContent = {
   eyebrow: 'COMPARE',
   heading: 'Weigh up to 3 helmets side by side.',
   copy: 'Safety rating, weight, shell size, ventilation, price — all lined up so you can choose with confidence.',
-  link: { label: 'Start comparing →', href: '/shop' },
+  link: { label: 'Start comparing', href: '/shop' },
 };
 
 export interface ShowroomContent {

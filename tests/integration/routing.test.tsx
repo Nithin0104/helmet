@@ -21,7 +21,7 @@ describe('app routing', () => {
 
   it('renders the shop page at /shop', () => {
     renderWithProviders(<App />, { route: '/shop' });
-    expect(h1(/all helmets/i)).toBeInTheDocument();
+    expect(h1(/^helmets$/i)).toBeInTheDocument();
   });
 
   it('renders a product page for a known id', () => {
@@ -37,7 +37,7 @@ describe('app routing', () => {
 
   it('renders the cart page at /cart', () => {
     renderWithProviders(<App />, { route: '/cart' });
-    expect(h1(/your cart/i)).toBeInTheDocument();
+    expect(h1(/your bag/i)).toBeInTheDocument();
   });
 
   it('renders the checkout page in the minimal layout (no footer nav)', () => {

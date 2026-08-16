@@ -1,3 +1,4 @@
+export * from './Icon/Icon';
 export * from './Button/Button';
 export * from './ActionButton/ActionButton';
 export * from './SaveButton/SaveButton';
@@ -28,3 +29,10 @@ export * from './Carousel/Carousel';
 export * from './HoverZoom/HoverZoom';
 export * from './CountUp/CountUp';
 export * from './Marquee/Marquee';
+export * from './Select/Select';
+export * from './SegmentedToggle/SegmentedToggle';
+export * from './EmptyState/EmptyState';
+export * from './PromoTile/PromoTile';
+export * from './SizeGrid/SizeGrid';
+export * from './SpecTable/SpecTable';
+export * from './TrustList/TrustList';

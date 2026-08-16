@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { X } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../Icon/Icon';
 import styles from './Chip.module.css';
 
 export type ChipVariant = 'select' | 'filter' | 'nav';
@@ -60,7 +62,7 @@ export function Chip({
             onRemove?.();
           }}
         >
-          ×
+          <Icon icon={X} size="sm" />
         </span>
       )}
     </button>

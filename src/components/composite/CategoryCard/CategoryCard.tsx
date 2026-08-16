@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../../primitives';
 import styles from './CategoryCard.module.css';
 
 export interface CategoryCardProps {
@@ -16,9 +18,7 @@ export function CategoryCard({ kicker, title, caption, href, className }: Catego
   return (
     <Link to={href} className={cx(styles.card, className)} aria-label={title}>
       <span className={styles.kicker}>{kicker}</span>
-      <span className={styles.arrow} aria-hidden>
-        →
-      </span>
+      <Icon icon={ArrowRight} className={styles.arrow} />
       <span className={styles.body}>
         <span className={styles.title}>{title}</span>
         <span className={styles.caption}>{caption}</span>

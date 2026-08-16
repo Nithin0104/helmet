@@ -1,4 +1,6 @@
+import { Check } from 'lucide-react';
 import { cx } from '../../../lib/cx';
+import { Icon } from '../../primitives';
 import styles from './CartToast.module.css';
 
 export interface CartToastProps {
@@ -18,9 +20,7 @@ export function CartToast({ visible, message = 'Added to cart', className }: Car
 
   return (
     <div className={cx(styles.toast, className)} role="status" aria-live="polite">
-      <span className={styles.icon} aria-hidden>
-        ✓
-      </span>
+      <Icon icon={Check} size="sm" className={styles.icon} />
       {message}
     </div>
   );
